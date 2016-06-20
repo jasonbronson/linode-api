@@ -1,0 +1,21 @@
+{
+    "name": "arodygin/linode-api",
+    "description": "Linode API Client Library for PHP",
+    "type": "library",
+    "keywords": ["api", "linode"],
+    "homepage": "https://github.com/arodygin/php-linode-api",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.9",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Linode\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
