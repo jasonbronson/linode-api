@@ -1,6 +1,8 @@
 [![License](https://poser.pugx.org/arodygin/linode-api/license)](https://packagist.org/packages/arodygin/linode-api)
 [![Latest Stable Version](https://poser.pugx.org/arodygin/linode-api/v/stable)](https://packagist.org/packages/arodygin/linode-api)
 [![Build Status](https://travis-ci.org/arodygin/php-linode-api.svg?branch=master)](https://travis-ci.org/arodygin/php-linode-api)
+[![Code Coverage](https://scrutinizer-ci.com/g/arodygin/php-linode-api/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/arodygin/php-linode-api/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/arodygin/php-linode-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arodygin/php-linode-api/?branch=master)
 
 # Linode API Client Library for PHP
 
