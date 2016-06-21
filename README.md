@@ -20,5 +20,6 @@ composer require "arodygin/linode-api"
 ## Development
 
 ```bash
+phpunit --coverage-text
 php ./bin/php-cs-fixer fix
 ```
