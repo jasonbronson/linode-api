@@ -48,7 +48,6 @@ class LinodeClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Linode\LinodeException
-     * @expectedExceptionMessage The method is not allowed for the requested URL.
      */
     public function testPostNotAllowedError()
     {
