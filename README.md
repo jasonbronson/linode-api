@@ -16,3 +16,9 @@ The recommended way to install is via Composer:
 ```bash
 composer require "arodygin/linode-api"
 ```
+
+## Development
+
+```bash
+php ./bin/php-cs-fixer fix
+```
