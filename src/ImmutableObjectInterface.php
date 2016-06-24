@@ -19,7 +19,7 @@ interface ImmutableObjectInterface
     /**
      * Reloads Linode object.
      *
-     * @return  bool Whether the operation was successful.
+     * @throws  LinodeException
      */
     public function refresh();
 }

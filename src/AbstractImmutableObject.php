@@ -25,7 +25,7 @@ abstract class AbstractImmutableObject implements ImmutableObjectInterface
     protected $validator;
 
     /**
-     * Initializes object properties from specified associated array.
+     * Initializes object properties with values from specified associated array.
      *
      * @param   LinodeClient $client Linode API client.
      * @param   array        $data   Object data.
@@ -36,16 +36,28 @@ abstract class AbstractImmutableObject implements ImmutableObjectInterface
     {
         $this->client = $client;
 
+        $this->validator = Validation::createValidatorBuilder()
+            ->addMethodMapping('loadValidatorMetadata')
+            ->getValidator()
+        ;
+
+        $this->initialize($data);
+    }
+
+    /**
+     * Re-initializes object properties with values from specified associated array.
+     *
+     * @param   array $data
+     *
+     * @throws  ValidationException
+     */
+    protected function initialize(array $data = [])
+    {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
-
-        $this->validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator()
-        ;
 
         $violations = $this->validator->validate($this);
 

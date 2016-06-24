@@ -39,6 +39,5 @@ class TestImmutableObject extends AbstractImmutableObject implements ValidatedOb
      */
     public function refresh()
     {
-        return true;
     }
 }

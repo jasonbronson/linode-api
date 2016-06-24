@@ -39,7 +39,6 @@ class TestMutableObject extends AbstractMutableObject implements ValidatedObject
      */
     public function refresh()
     {
-        return true;
     }
 
     /**
@@ -47,7 +46,6 @@ class TestMutableObject extends AbstractMutableObject implements ValidatedObject
      */
     public function save()
     {
-        return true;
     }
 
     /**
@@ -55,6 +53,5 @@ class TestMutableObject extends AbstractMutableObject implements ValidatedObject
      */
     public function delete()
     {
-        return true;
     }
 }

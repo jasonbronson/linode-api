@@ -19,14 +19,14 @@ interface MutableObjectInterface extends ImmutableObjectInterface
     /**
      * Saves Linode object. In case of new object it must be created.
      *
-     * @return  bool Whether the operation was successful.
+     * @throws  LinodeException
      */
     public function save();
 
     /**
      * Deletes Linode object.
      *
-     * @return  bool Whether the operation was successful.
+     * @throws  LinodeException
      */
     public function delete();
 }
