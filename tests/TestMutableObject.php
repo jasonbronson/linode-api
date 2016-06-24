@@ -11,7 +11,7 @@
 
 namespace Tests\Linode;
 
-use Linode\AbstractObject;
+use Linode\AbstractMutableObject;
 use Linode\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * @property    bool $flag
  */
-class TestObject extends AbstractObject implements ValidatedObjectInterface
+class TestMutableObject extends AbstractMutableObject implements ValidatedObjectInterface
 {
     protected $flag;
 
@@ -32,5 +32,29 @@ class TestObject extends AbstractObject implements ValidatedObjectInterface
             new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function refresh()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete()
+    {
+        return true;
     }
 }

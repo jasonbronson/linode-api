@@ -14,15 +14,15 @@ namespace Linode;
 use Symfony\Component\Validator\Validation;
 
 /**
- * A Linode object is a representation of an individual resource.
+ * A Linode object to represent an individual read-only resource.
  */
-class AbstractObject
+abstract class AbstractImmutableObject implements ImmutableObjectInterface
 {
     /** @var LinodeClient */
     protected $client;
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
-    private $validator;
+    protected $validator;
 
     /**
      * Initializes object properties from specified associated array.
@@ -59,6 +59,8 @@ class AbstractObject
     }
 
     /**
+     * Checks whether specified property exists in the object.
+     *
      * @param   string $name
      *
      * @return  bool
@@ -69,30 +71,23 @@ class AbstractObject
     }
 
     /**
+     * Keeps object properties from modifications.
+     *
      * @param   string $name
-     * @param   string $value
+     * @param   mixed  $value
      *
      * @throws  ValidationException
      */
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {
-
-            $violations = $this->validator->validatePropertyValue($this, $name, $value);
-
-            if ($violations->count() !== 0) {
-
-                $violation = $violations->get(0);
-                $message   = sprintf('[%s] %s', $violation->getPropertyPath(), $violation->getMessage());
-
-                throw new ValidationException($message);
-            }
-
-            $this->$name = $value;
+            throw new ValidationException('This object is immutable.');
         }
     }
 
     /**
+     * Returns current value of specified property.
+     *
      * @param   string $name
      *
      * @return  mixed

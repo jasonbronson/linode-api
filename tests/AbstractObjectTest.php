@@ -25,7 +25,11 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorValidData()
     {
-        $object = new TestObject($this->client, ['flag' => true]);
+        /** @var \StdClass $object */
+        $object = new TestImmutableObject($this->client, ['flag' => true]);
+
+        self::assertTrue(isset($object->flag));
+        self::assertFalse(isset($object->unknown));
 
         self::assertTrue($object->flag);
     }
@@ -36,7 +40,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorInvalidData()
     {
-        new TestObject($this->client, ['flag' => 'true']);
+        new TestImmutableObject($this->client, ['flag' => 'true']);
     }
 
     /**
@@ -45,33 +49,34 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorEmptyData()
     {
-        new TestObject($this->client);
+        new TestImmutableObject($this->client);
     }
 
-    public function testExistingProperty()
+    public function testMutableProperty()
     {
-        /** @var \StdClass $object */
-        $object = new TestObject($this->client, ['flag' => true]);
-
-        self::assertTrue(isset($object->flag));
-        self::assertTrue($object->flag);
-
+        $object = new TestMutableObject($this->client, ['flag' => true]);
         $object->flag = false;
 
         self::assertFalse($object->flag);
     }
 
-    public function testUnknownProperty()
+    /**
+     * @expectedException \Linode\ValidationException
+     * @expectedExceptionMessage This object is immutable.
+     */
+    public function testImmutableProperty()
     {
-        /** @var \StdClass $object */
-        $object = new TestObject($this->client, ['flag' => true]);
+        $object = new TestImmutableObject($this->client, ['flag' => true]);
+        $object->flag = false;
+    }
 
-        self::assertFalse(isset($object->unknown));
-        self::assertNull($object->unknown);
-
-        $object->unknown = true;
-
-        self::assertFalse(isset($object->unknown));
-        self::assertNull($object->unknown);
+    /**
+     * @expectedException \Linode\ValidationException
+     * @expectedExceptionMessage [flag] This value should not be null.
+     */
+    public function testMutablePropertyException()
+    {
+        $object = new TestMutableObject($this->client, ['flag' => true]);
+        $object->flag = null;
     }
 }
