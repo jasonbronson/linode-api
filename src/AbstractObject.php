@@ -18,18 +18,24 @@ use Symfony\Component\Validator\Validation;
  */
 class AbstractObject
 {
+    /** @var LinodeClient */
+    protected $client;
+
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
     private $validator;
 
     /**
      * Initializes object properties from specified associated array.
      *
-     * @param   array $data
+     * @param   LinodeClient $client Linode API client.
+     * @param   array        $data   Object data.
      *
      * @throws  ValidationException
      */
-    public function __construct(array $data = [])
+    public function __construct(LinodeClient $client, array $data = [])
     {
+        $this->client = $client;
+
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;

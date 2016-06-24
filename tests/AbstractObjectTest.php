@@ -11,11 +11,21 @@
 
 namespace Tests\Linode;
 
+use Linode\LinodeClient;
+
 class AbstactObjectTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var LinodeClient */
+    private $client;
+
+    protected function setUp()
+    {
+        $this->client = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
+    }
+
     public function testConstructorValidData()
     {
-        $object = new TestObject(['flag' => true]);
+        $object = new TestObject($this->client, ['flag' => true]);
 
         self::assertTrue($object->flag);
     }
@@ -26,7 +36,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorInvalidData()
     {
-        new TestObject(['flag' => 'true']);
+        new TestObject($this->client, ['flag' => 'true']);
     }
 
     /**
@@ -35,13 +45,13 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorEmptyData()
     {
-        new TestObject();
+        new TestObject($this->client);
     }
 
     public function testExistingProperty()
     {
         /** @var \StdClass $object */
-        $object = new TestObject(['flag' => true]);
+        $object = new TestObject($this->client, ['flag' => true]);
 
         self::assertTrue(isset($object->flag));
         self::assertTrue($object->flag);
@@ -54,7 +64,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
     public function testUnknownProperty()
     {
         /** @var \StdClass $object */
-        $object = new TestObject(['flag' => true]);
+        $object = new TestObject($this->client, ['flag' => true]);
 
         self::assertFalse(isset($object->unknown));
         self::assertNull($object->unknown);
