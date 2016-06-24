@@ -9,10 +9,15 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Internal;
+
+use Linode\MutableObjectInterface;
+use Linode\ValidationException;
 
 /**
  * A Linode object to represent an individual editable resource.
+ *
+ * This class should not be used or overwritten in userland code.
  */
 abstract class AbstractMutableObject extends AbstractImmutableObject implements MutableObjectInterface
 {

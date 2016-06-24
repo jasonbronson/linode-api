@@ -9,9 +9,9 @@
 //
 //----------------------------------------------------------------------
 
-namespace Tests\Linode;
+namespace Tests\Linode\Internal;
 
-use Linode\AbstractMutableObject;
+use Linode\Internal\AbstractMutableObject;
 use Linode\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;

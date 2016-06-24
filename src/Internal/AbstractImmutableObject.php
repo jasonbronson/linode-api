@@ -9,12 +9,17 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Internal;
 
+use Linode\ImmutableObjectInterface;
+use Linode\LinodeClient;
+use Linode\ValidationException;
 use Symfony\Component\Validator\Validation;
 
 /**
  * A Linode object to represent an individual read-only resource.
+ *
+ * This class should not be used or overwritten in userland code.
  */
 abstract class AbstractImmutableObject implements ImmutableObjectInterface
 {

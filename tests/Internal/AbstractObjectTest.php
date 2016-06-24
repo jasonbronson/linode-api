@@ -9,11 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-namespace Tests\Linode;
+namespace Tests\Linode\Internal;
 
 use Linode\LinodeClient;
 
-class AbstactObjectTest extends \PHPUnit_Framework_TestCase
+class AbstractObjectTest extends \PHPUnit_Framework_TestCase
 {
     /** @var LinodeClient */
     private $client;
@@ -54,7 +54,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testMutableProperty()
     {
-        $object = new TestMutableObject($this->client, ['flag' => true]);
+        $object       = new TestMutableObject($this->client, ['flag' => true]);
         $object->flag = false;
 
         self::assertFalse($object->flag);
@@ -66,7 +66,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testImmutableProperty()
     {
-        $object = new TestImmutableObject($this->client, ['flag' => true]);
+        $object       = new TestImmutableObject($this->client, ['flag' => true]);
         $object->flag = false;
     }
 
@@ -76,7 +76,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testMutablePropertyException()
     {
-        $object = new TestMutableObject($this->client, ['flag' => true]);
+        $object       = new TestMutableObject($this->client, ['flag' => true]);
         $object->flag = null;
     }
 }
