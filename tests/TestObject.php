@@ -12,13 +12,14 @@
 namespace Tests\Linode;
 
 use Linode\AbstractObject;
+use Linode\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @property    bool $flag
  */
-class TestObject extends AbstractObject
+class TestObject extends AbstractObject implements ValidatedObjectInterface
 {
     protected $flag;
 

@@ -26,7 +26,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorInvalidData()
     {
-        $object = new TestObject(['flag' => 'true']);
+        new TestObject(['flag' => 'true']);
     }
 
     /**
@@ -35,11 +35,12 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorEmptyData()
     {
-        $object = new TestObject();
+        new TestObject();
     }
 
     public function testExistingProperty()
     {
+        /** @var \StdClass $object */
         $object = new TestObject(['flag' => true]);
 
         self::assertTrue(isset($object->flag));
@@ -52,6 +53,7 @@ class AbstactObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testUnknownProperty()
     {
+        /** @var \StdClass $object */
         $object = new TestObject(['flag' => true]);
 
         self::assertFalse(isset($object->unknown));

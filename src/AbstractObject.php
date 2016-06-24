@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validation;
 /**
  * A Linode object is a representation of an individual resource.
  */
-abstract class AbstractObject implements ObjectInterface
+class AbstractObject
 {
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
     private $validator;

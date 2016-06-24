@@ -14,9 +14,9 @@ namespace Linode;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * A Linode object is a representation of an individual resource.
+ * An object with data being validated.
  */
-interface ObjectInterface
+interface ValidatedObjectInterface
 {
     /**
      * Loads validation constraints for object properties.
