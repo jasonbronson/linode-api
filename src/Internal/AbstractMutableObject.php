@@ -11,7 +11,6 @@
 
 namespace Linode\Internal;
 
-use Linode\MutableObjectInterface;
 use Linode\ValidationException;
 
 /**

@@ -12,7 +12,7 @@
 namespace Tests\Linode\Internal;
 
 use Linode\Internal\AbstractMutableObject;
-use Linode\ValidatedObjectInterface;
+use Linode\Internal\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 

@@ -9,7 +9,7 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Internal;
 
 /**
  * An object with read-only data.
@@ -19,7 +19,7 @@ interface ImmutableObjectInterface
     /**
      * Reloads Linode object.
      *
-     * @throws  LinodeException
+     * @throws  \Linode\LinodeException
      */
     public function refresh();
 }

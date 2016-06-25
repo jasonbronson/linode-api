@@ -9,24 +9,19 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Internal;
+
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * An object with editable data.
+ * An object with data being validated.
  */
-interface MutableObjectInterface extends ImmutableObjectInterface
+interface ValidatedObjectInterface
 {
     /**
-     * Saves Linode object. In case of new object it must be created.
+     * Loads validation constraints for object properties.
      *
-     * @throws  LinodeException
+     * @param   ClassMetadata $metadata
      */
-    public function save();
-
-    /**
-     * Deletes Linode object.
-     *
-     * @throws  LinodeException
-     */
-    public function delete();
+    public static function loadValidatorMetadata(ClassMetadata $metadata);
 }

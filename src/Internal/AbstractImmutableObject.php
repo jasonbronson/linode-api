@@ -11,7 +11,6 @@
 
 namespace Linode\Internal;
 
-use Linode\ImmutableObjectInterface;
 use Linode\LinodeClient;
 use Linode\ValidationException;
 use Symfony\Component\Validator\Validation;
