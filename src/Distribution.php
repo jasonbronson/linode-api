@@ -20,24 +20,24 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * A Linux distribution supported by Linode.
  *
  * @property    string  $id                  A string.
- * @property    int     $minimum_image_size  The minimum size required for the distrbution image.
  * @property    string  $label               The user-friendly name of this distribution.
- * @property    string  $created             ISO 8601 datetime.
- * @property    bool    $experimental        TRUE if this distribution is a beta or preview release.
  * @property    string  $vendor              The upstream distribution vendor. Consistent between releases of a distro.
- * @property    bool    $recommended         TRUE if this distribution is recommended by Linode.
+ * @property    string  $created             ISO 8601 datetime.
+ * @property    int     $minimum_image_size  The minimum size required for the distrbution image.
  * @property    bool    $x64                 TRUE if this is a 64-bit distribution.
+ * @property    bool    $recommended         TRUE if this distribution is recommended by Linode.
+ * @property    bool    $experimental        TRUE if this distribution is a beta or preview release.
  */
 class Distribution extends AbstractImmutableObject implements ValidatedObjectInterface
 {
     protected $id;
-    protected $minimum_image_size;
     protected $label;
-    protected $created;
-    protected $experimental;
     protected $vendor;
-    protected $recommended;
+    protected $created;
+    protected $minimum_image_size;
     protected $x64;
+    protected $recommended;
+    protected $experimental;
 
     /**
      * {@inheritdoc}
@@ -49,13 +49,12 @@ class Distribution extends AbstractImmutableObject implements ValidatedObjectInt
             new Constraints\NotNull(),
         ]);
 
-        $metadata->addPropertyConstraints('minimum_image_size', [
-            new Constraints\Type(['type' => 'int']),
+        $metadata->addPropertyConstraints('label', [
+            new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
 
-        $metadata->addPropertyConstraints('label', [
+        $metadata->addPropertyConstraints('vendor', [
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
         ]);
@@ -65,13 +64,14 @@ class Distribution extends AbstractImmutableObject implements ValidatedObjectInt
             new Constraints\NotNull(),
         ]);
 
-        $metadata->addPropertyConstraints('experimental', [
-            new Constraints\Type(['type' => 'bool']),
+        $metadata->addPropertyConstraints('minimum_image_size', [
+            new Constraints\Type(['type' => 'int']),
             new Constraints\NotNull(),
+            new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
 
-        $metadata->addPropertyConstraints('vendor', [
-            new Constraints\Type(['type' => 'string']),
+        $metadata->addPropertyConstraints('x64', [
+            new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);
 
@@ -80,7 +80,7 @@ class Distribution extends AbstractImmutableObject implements ValidatedObjectInt
             new Constraints\NotNull(),
         ]);
 
-        $metadata->addPropertyConstraints('x64', [
+        $metadata->addPropertyConstraints('experimental', [
             new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);

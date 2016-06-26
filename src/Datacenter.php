@@ -20,14 +20,14 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * A Linode datacenter.
  *
  * @property    string  $id          A string.
- * @property    string  $label       Human-friendly datacenter name.
  * @property    string  $datacenter  Datacenter alias (@see "Linode\Enum\DatacenterEnum").
+ * @property    string  $label       Human-friendly datacenter name.
  */
 class Datacenter extends AbstractImmutableObject implements ValidatedObjectInterface
 {
     protected $id;
-    protected $label;
     protected $datacenter;
+    protected $label;
 
     /**
      * {@inheritdoc}
@@ -39,15 +39,15 @@ class Datacenter extends AbstractImmutableObject implements ValidatedObjectInter
             new Constraints\NotNull(),
         ]);
 
-        $metadata->addPropertyConstraints('label', [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\NotNull(),
-        ]);
-
         $metadata->addPropertyConstraints('datacenter', [
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
             new Constraints\Choice(['callback' => ['Linode\Enum\DatacenterEnum', 'keys']]),
+        ]);
+
+        $metadata->addPropertyConstraints('label', [
+            new Constraints\Type(['type' => 'string']),
+            new Constraints\NotNull(),
         ]);
     }
 
