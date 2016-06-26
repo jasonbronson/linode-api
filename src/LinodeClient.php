@@ -152,4 +152,20 @@ final class LinodeClient implements LinodeClientInterface
     {
         return $this->findObject(Distribution::class, $id);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getKernels()
+    {
+        return new Collection($this, '/kernels', Kernel::class, 'kernels');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findKernel($id)
+    {
+        return $this->findObject(Kernel::class, $id);
+    }
 }

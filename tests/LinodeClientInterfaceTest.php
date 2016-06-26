@@ -14,6 +14,7 @@ namespace Tests\Linode;
 use AltrEgo\AltrEgo;
 use Linode\Datacenter;
 use Linode\Distribution;
+use Linode\Kernel;
 use Linode\LinodeClient;
 use Tests\Linode\Internal\ApiBridgeStub;
 
@@ -68,5 +69,20 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Distribution::class, $object);
         self::assertEquals('Ubuntu 12.04 LTS', $object->label);
+    }
+
+    public function testGetKernels()
+    {
+        $collection = $this->client->getKernels();
+
+        self::assertCount(16, $collection);
+    }
+
+    public function testFindKernel()
+    {
+        $object = $this->client->findKernel('kernel_137');
+
+        self::assertInstanceOf(Kernel::class, $object);
+        self::assertEquals('Latest 32 bit (4.1.5-x86-linode80)', $object->label);
     }
 }

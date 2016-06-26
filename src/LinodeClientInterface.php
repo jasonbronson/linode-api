@@ -53,4 +53,22 @@ interface LinodeClientInterface
      * @throws  LinodeException
      */
     public function findDistribution($id);
+
+    /**
+     * Returns list of kernels.
+     *
+     * @return  Collection|Kernel[]
+     * @throws  LinodeException
+     */
+    public function getKernels();
+
+    /**
+     * Finds specified kernel.
+     *
+     * @param   string $id Kernel ID.
+     *
+     * @return  Kernel
+     * @throws  LinodeException
+     */
+    public function findKernel($id);
 }
