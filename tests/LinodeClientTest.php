@@ -11,6 +11,8 @@
 
 namespace Tests\Linode;
 
+use Linode\Datacenter;
+use Linode\Enum\DatacenterEnum;
 use Linode\LinodeClient;
 
 class LinodeClientTest extends \PHPUnit_Framework_TestCase
@@ -58,5 +60,17 @@ class LinodeClientTest extends \PHPUnit_Framework_TestCase
     public function testDeleteNotAllowedError()
     {
         $this->client->apiDelete('/datacenters/datacenter_0');
+    }
+
+    public function testFindObject()
+    {
+        $method = new \ReflectionMethod(LinodeClient::class, 'findObject');
+        $method->setAccessible(true);
+
+        /** @var Datacenter $object */
+        $object = $method->invoke($this->client, Datacenter::class, 'datacenter_6');
+
+        self::assertInstanceOf(Datacenter::class, $object);
+        self::assertEquals(DatacenterEnum::NEWARK, $object->datacenter);
     }
 }

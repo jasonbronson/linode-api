@@ -11,6 +11,7 @@
 
 namespace Linode;
 
+use AltrEgo\AltrEgo;
 use Linode\Internal\ApiBridge;
 
 /**
@@ -84,5 +85,34 @@ final class LinodeClient implements LinodeClientInterface
     public function apiDelete($endpoint, array $parameters = [])
     {
         return $this->api->call(ApiBridge::METHOD_DELETE, $endpoint, $parameters);
+    }
+
+    /**
+     * Finds specified Linode API resource.
+     *
+     * @param   string $class PHP class of resource object (must inherit from "AbstractImmutableObject").
+     * @param   string $id    Resource ID.
+     *
+     * @return  Internal\AbstractImmutableObject
+     */
+    protected function findObject($class, $id)
+    {
+        $reflectionClass = new \ReflectionClass($class);
+
+        /** @var Internal\AbstractImmutableObject $object */
+        $object = $reflectionClass->newInstanceWithoutConstructor();
+
+        $reflectionMethod = new \ReflectionMethod(Internal\AbstractObject::class, '__construct');
+        $reflectionMethod->invoke($object, $this);
+
+        /** @noinspection PhpParamsInspection */
+        $reflectionObject = AltrEgo::create($object);
+
+        /** @var \StdClass $reflectionObject */
+        $reflectionObject->id = $id;
+
+        $object->refresh();
+
+        return $object;
     }
 }
