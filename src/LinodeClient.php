@@ -24,8 +24,8 @@ final class LinodeClient implements LinodeClientInterface
     /**
      * Constructor.
      *
-     * @param   string $token   
-     * @param   string $baseUrl 
+     * @param   string $token   Access token.
+     * @param   string $baseUrl Base URL for all API endpoints.
      */
     public function __construct($token = null, $baseUrl = 'https://api.linode.com/v4')
     {
@@ -115,5 +115,25 @@ final class LinodeClient implements LinodeClientInterface
         $object->refresh();
 
         return $object;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDistributions($recommended = true)
+    {
+        $endpoint = $recommended
+            ? '/distributions/recommended'
+            : '/distributions';
+
+        return new Collection($this, $endpoint, Distribution::class, 'distributions');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findDistribution($id)
+    {
+        return $this->findObject(Distribution::class, $id);
     }
 }

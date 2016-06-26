@@ -34,8 +34,8 @@ final class ApiBridge
     /**
      * Constructor.
      *
-     * @param   string $token   
-     * @param   string $baseUrl 
+     * @param   string $token   Access token.
+     * @param   string $baseUrl Base URL for all API endpoints.
      */
     public function __construct($token = null, $baseUrl = 'https://api.linode.com/v4')
     {

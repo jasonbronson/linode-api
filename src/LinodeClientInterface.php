@@ -16,4 +16,23 @@ namespace Linode;
  */
 interface LinodeClientInterface
 {
+    /**
+     * Returns list of distributions.
+     *
+     * @param   bool $recommended Get recommended distributions only.
+     *
+     * @return  Collection|Distribution[]
+     * @throws  LinodeException
+     */
+    public function getDistributions($recommended = true);
+
+    /**
+     * Finds specified distribution.
+     *
+     * @param   string $id Distribution ID.
+     *
+     * @return  Distribution
+     * @throws  LinodeException
+     */
+    public function findDistribution($id);
 }
