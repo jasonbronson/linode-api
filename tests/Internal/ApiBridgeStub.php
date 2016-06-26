@@ -53,6 +53,15 @@ class ApiBridgeStub
             '/kernels/kernel_137' => [
                 ApiBridge::METHOD_GET => 'getKernel',
             ],
+            '/services' => [
+                ApiBridge::METHOD_GET => 'getServices',
+            ],
+            '/services/linode' => [
+                ApiBridge::METHOD_GET => 'getLinodeServices',
+            ],
+            '/services/service_112' => [
+                ApiBridge::METHOD_GET => 'getService',
+            ],
         ];
 
         if (array_key_exists($endpoint, $endpoints)) {
@@ -202,5 +211,40 @@ class ApiBridgeStub
     protected function getKernel()
     {
         return '{"id": "kernel_137", "kvm": true, "label": "Latest 32 bit (4.1.5-x86-linode80)", "created": "2011-09-01T21:08:55", "xen": true, "version": "4.1.5", "description": "By selecting this kernel, you will always boot with the latest Linux kernel we provide.\n<br><br>\n2011-08-21 - 3.0.0-linode35\n<br>\n2011-09-01 - 3.0.4-linode36\n<br>\n2011-09-12 - 3.0.4-linode37\n<br>\n2011-09-22 - 3.0.4-linode38\n<br>\n2012-01-23 - 3.0.17-linode41\n<br>\n2012-01-30 - 3.0.18-linode43\n<br>\n2012-06-13 - 3.4.2-linode44\n<br>\n2012-08-24 - 3.5.2-linode45\n<br>\n2012-11-10 - 3.6.5-linode47\n<br>\n2013-02-27 - 3.7.10-linode49\n<br>\n2013-03-35 - 3.8.4-linode50\n<br>\n2013-05-14 - 3.9.2-x86-linode51\n<br>\n2013-05-20 - 3.9.3-x86-linode52\n<br>\n2013-10-29 - 3.11.6-x86-linode54\n<br>\n2013-12-30 - 3.12.6-x86-linode55\n<br>\n2014-02-04 - 3.12.9-x86-linode56\n<br>\n2014-03-26 - 3.13.7-x86-linode57\n<br>\n2014-04-30 - 3.14.1-x86-linode58\n<br>\n2014-05-13 - 3.14.4-x86-linode59\n<br>\n2014-06-02 - 3.14.5-x86-linode60\n<br>\n2014-06-02 - 3.14.5-x86-linode61\n<br>\n2014-07-02 - 3.15.3-x86-linode63\n<br>\n2014-07-08 - 3.15.4-x86-linode64\n<br>\n2014-11-03 - 3.17.1-x86-linode66\n<br>\n2014-11-10 - 3.16.5-x86-linode65\n<br>\n2015-06-12 - 4.0.5-x86-linode77\n<br> \n2015-06-25 - 4.1.0-x86-linode78\n<br>\n2015-08-24 - 4.1.5-x86-linode80\n", "deprecated": false, "updates": null, "x64": false}';
+    }
+
+    /**
+     * Emulates response from GET '/services' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getServices()
+    {
+        return '{"page": 1, "total_pages": 1, "total_results": 3, "services": [
+                {"id": "service_112", "ram": 1024, "label": "Linode 1024", "hourly_price": 1, "service_type": "linode", "transfer": 2000, "disk": 24, "mbits_out": 25, "vcpus": 1, "monthly_price": 1000}, 
+                {"id": "service_117", "ram": 8192, "label": "Linode 8192", "hourly_price": 12, "service_type": "linode", "transfer": 8000, "disk": 192, "mbits_out": 1000, "vcpus": 6, "monthly_price": 8000}, 
+                {"id": "service_129", "ram": 8192, "label": "Backup Service - Linode 8192", "hourly_price": 3, "service_type": "backup", "transfer": 8000, "disk": 192, "mbits_out": null, "vcpus": null, "monthly_price": 2000}]}';
+    }
+
+    /**
+     * Emulates response from GET '/services/linode' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getLinodeServices()
+    {
+        return '{"page": 1, "total_pages": 1, "total_results": 2, "services": [
+                {"id": "service_112", "ram": 1024, "label": "Linode 1024", "hourly_price": 1, "service_type": "linode", "transfer": 2000, "disk": 24, "mbits_out": 25, "vcpus": 1, "monthly_price": 1000}, 
+                {"id": "service_117", "ram": 8192, "label": "Linode 8192", "hourly_price": 12, "service_type": "linode", "transfer": 8000, "disk": 192, "mbits_out": 1000, "vcpus": 6, "monthly_price": 8000}]}';
+    }
+
+    /**
+     * Emulates response from GET '/services/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getService()
+    {
+        return '{"id": "service_112", "ram": 1024, "label": "Linode 1024", "hourly_price": 1, "service_type": "linode", "transfer": 2000, "disk": 24, "mbits_out": 25, "vcpus": 1, "monthly_price": 1000}';
     }
 }

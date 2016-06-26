@@ -14,8 +14,10 @@ namespace Tests\Linode;
 use AltrEgo\AltrEgo;
 use Linode\Datacenter;
 use Linode\Distribution;
+use Linode\Enum\ServiceTypeEnum;
 use Linode\Kernel;
 use Linode\LinodeClient;
+use Linode\Service;
 use Tests\Linode\Internal\ApiBridgeStub;
 
 class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
@@ -84,5 +86,27 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Kernel::class, $object);
         self::assertEquals('Latest 32 bit (4.1.5-x86-linode80)', $object->label);
+    }
+
+    public function testGetServices()
+    {
+        $collection = $this->client->getServices();
+
+        self::assertCount(3, $collection);
+    }
+
+    public function testGetLinodeServices()
+    {
+        $collection = $this->client->getServices(ServiceTypeEnum::LINODE);
+
+        self::assertCount(2, $collection);
+    }
+
+    public function testFindService()
+    {
+        $object = $this->client->findService('service_112');
+
+        self::assertInstanceOf(Service::class, $object);
+        self::assertEquals('Linode 1024', $object->label);
     }
 }

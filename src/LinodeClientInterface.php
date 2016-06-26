@@ -71,4 +71,24 @@ interface LinodeClientInterface
      * @throws  LinodeException
      */
     public function findKernel($id);
+
+    /**
+     * Returns list of services.
+     *
+     * @param   string $type Type of services to return (NULL to return all, @see "Linode\Enum\ServiceTypeEnum").
+     *
+     * @return  Collection|Service[]
+     * @throws  LinodeException
+     */
+    public function getServices($type = null);
+
+    /**
+     * Finds specified service.
+     *
+     * @param   string $id Service ID.
+     *
+     * @return  Service
+     * @throws  LinodeException
+     */
+    public function findService($id);
 }

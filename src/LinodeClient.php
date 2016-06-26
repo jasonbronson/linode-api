@@ -12,6 +12,7 @@
 namespace Linode;
 
 use AltrEgo\AltrEgo;
+use Linode\Enum\ServiceTypeEnum;
 use Linode\Internal\ApiBridge;
 
 /**
@@ -167,5 +168,25 @@ final class LinodeClient implements LinodeClientInterface
     public function findKernel($id)
     {
         return $this->findObject(Kernel::class, $id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getServices($type = null)
+    {
+        $endpoint = $type !== null && ServiceTypeEnum::has($type)
+            ? '/services/' . $type
+            : '/services';
+
+        return new Collection($this, $endpoint, Service::class, 'services');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findService($id)
+    {
+        return $this->findObject(Service::class, $id);
     }
 }
