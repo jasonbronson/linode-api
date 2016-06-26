@@ -32,6 +32,12 @@ class ApiBridgeStub
         $result = '';
 
         $endpoints = [
+            '/datacenters' => [
+                ApiBridge::METHOD_GET => 'getDatacenters',
+            ],
+            '/datacenters/datacenter_6' => [
+                ApiBridge::METHOD_GET => 'getDatacenter',
+            ],
             '/distributions' => [
                 ApiBridge::METHOD_GET => 'getDistributions',
             ],
@@ -54,6 +60,34 @@ class ApiBridgeStub
 
         // Parse the response.
         return json_decode($result, true) ?: [];
+    }
+
+    /**
+     * Emulates response from GET '/datacenters' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDatacenters()
+    {
+        return '{"page": 1, "total_pages": 1, "total_results": 8, "datacenters": [
+                {"id": "datacenter_2", "label": "Dallas, TX", "datacenter": "dallas"}, 
+                {"id": "datacenter_3", "label": "Fremont, CA", "datacenter": "fremont"}, 
+                {"id": "datacenter_4", "label": "Atlanta, GA", "datacenter": "atlanta"}, 
+                {"id": "datacenter_6", "label": "Newark, NJ", "datacenter": "newark"}, 
+                {"id": "datacenter_7", "label": "London, UK", "datacenter": "london"}, 
+                {"id": "datacenter_8", "label": "Tokyo, JP", "datacenter": "tokyo"}, 
+                {"id": "datacenter_9", "label": "Singapore, SG", "datacenter": "singapore"}, 
+                {"id": "datacenter_10", "label": "Frankfurt, DE", "datacenter": "frankfurt"}]}';
+    }
+
+    /**
+     * Emulates response from GET '/datacenters/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDatacenter()
+    {
+        return '{"id": "datacenter_6", "label": "Newark, NJ", "datacenter": "newark"}';
     }
 
     /**

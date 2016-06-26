@@ -23,6 +23,7 @@ class DatacenterEnum extends StaticDictionary
     const ATLANTA   = 'atlanta';
     const NEWARK    = 'newark';
     const LONDON    = 'london';
+    const TOKYO     = 'tokyo';
     const SINGAPORE = 'singapore';
     const FRANKFURT = 'frankfurt';
 
@@ -36,7 +37,8 @@ class DatacenterEnum extends StaticDictionary
             self::FREMONT   => 'Fremont, CA',
             self::ATLANTA   => 'Atlanta, GA',
             self::NEWARK    => 'Newark, NJ',
-            self::LONDON    => 'London, England, UK',
+            self::LONDON    => 'London, UK',
+            self::TOKYO     => 'Tokyo, JP',
             self::SINGAPORE => 'Singapore, SG',
             self::FRANKFURT => 'Frankfurt, DE',
         ];

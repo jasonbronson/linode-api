@@ -12,6 +12,7 @@
 namespace Tests\Linode;
 
 use AltrEgo\AltrEgo;
+use Linode\Datacenter;
 use Linode\Distribution;
 use Linode\LinodeClient;
 use Tests\Linode\Internal\ApiBridgeStub;
@@ -30,6 +31,21 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
 
         /** @var \StdClass $client */
         $client->api = new ApiBridgeStub();
+    }
+
+    public function testGetDatacenters()
+    {
+        $collection = $this->client->getDatacenters();
+
+        self::assertCount(8, $collection);
+    }
+
+    public function testFindDatacenter()
+    {
+        $object = $this->client->findDatacenter('datacenter_6');
+
+        self::assertInstanceOf(Datacenter::class, $object);
+        self::assertEquals('Newark, NJ', $object->label);
     }
 
     public function testGetDistributions()

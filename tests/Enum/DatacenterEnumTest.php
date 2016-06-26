@@ -23,6 +23,7 @@ class DatacenterEnumTest extends \PHPUnit_Framework_TestCase
             'atlanta',
             'newark',
             'london',
+            'tokyo',
             'singapore',
             'frankfurt',
         ];

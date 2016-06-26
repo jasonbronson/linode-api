@@ -17,6 +17,24 @@ namespace Linode;
 interface LinodeClientInterface
 {
     /**
+     * Returns list of datacenters.
+     *
+     * @return  Collection|Datacenter[]
+     * @throws  LinodeException
+     */
+    public function getDatacenters();
+
+    /**
+     * Finds specified datacenter.
+     *
+     * @param   string $id Datacenter ID.
+     *
+     * @return  Datacenter
+     * @throws  LinodeException
+     */
+    public function findDatacenter($id);
+
+    /**
      * Returns list of distributions.
      *
      * @param   bool $recommended Get recommended distributions only.

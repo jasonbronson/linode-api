@@ -120,6 +120,22 @@ final class LinodeClient implements LinodeClientInterface
     /**
      * {@inheritdoc}
      */
+    public function getDatacenters()
+    {
+        return new Collection($this, '/datacenters', Datacenter::class, 'datacenters');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findDatacenter($id)
+    {
+        return $this->findObject(Datacenter::class, $id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getDistributions($recommended = true)
     {
         $endpoint = $recommended
