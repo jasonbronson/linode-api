@@ -13,20 +13,20 @@ namespace Linode\Internal;
 
 use Linode\LinodeClient;
 use Linode\ValidationException;
-use Symfony\Component\Validator\Validation;
 
 /**
  * A Linode object to represent an individual read-only resource.
  *
  * This class should not be used or overwritten in userland code.
  */
-abstract class AbstractImmutableObject implements ImmutableObjectInterface
+abstract class AbstractImmutableObject extends AbstractObject implements ImmutableObjectInterface
 {
-    /** @var LinodeClient */
-    protected $client;
-
-    /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
-    protected $validator;
+    /**
+     * Returns API endpoint to retrieve the object.
+     *
+     * @return  string|false
+     */
+    abstract protected function getEndpoint();
 
     /**
      * Initializes object properties with values from specified associated array.
@@ -38,12 +38,7 @@ abstract class AbstractImmutableObject implements ImmutableObjectInterface
      */
     public function __construct(LinodeClient $client, array $data = [])
     {
-        $this->client = $client;
-
-        $this->validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator()
-        ;
+        parent::__construct($client);
 
         $this->initialize($data);
     }
@@ -111,5 +106,18 @@ abstract class AbstractImmutableObject implements ImmutableObjectInterface
     public function __get($name)
     {
         return property_exists($this, $name) ? $this->$name : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function refresh()
+    {
+        $endpoint = $this->getEndpoint();
+
+        if ($endpoint !== false) {
+            $result = $this->client->apiGet($endpoint);
+            $this->initialize($result);
+        }
     }
 }

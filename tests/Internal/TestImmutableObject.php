@@ -37,7 +37,8 @@ class TestImmutableObject extends AbstractImmutableObject implements ValidatedOb
     /**
      * {@inheritdoc}
      */
-    public function refresh()
+    protected function getEndpoint()
     {
+        return $this->flag ? '/flags' : false;
     }
 }

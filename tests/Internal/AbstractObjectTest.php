@@ -79,4 +79,13 @@ class AbstractObjectTest extends \PHPUnit_Framework_TestCase
         $object       = new TestMutableObject($this->client, ['flag' => true]);
         $object->flag = null;
     }
+
+    public function testGetEndpoint()
+    {
+        $method = new \ReflectionMethod(TestImmutableObject::class, 'getEndpoint');
+        $method->setAccessible(true);
+
+        $object = new TestImmutableObject($this->client, ['flag' => true]);
+        self::assertEquals('/flags', $method->invoke($object));
+    }
 }

@@ -37,8 +37,9 @@ class TestMutableObject extends AbstractMutableObject implements ValidatedObject
     /**
      * {@inheritdoc}
      */
-    public function refresh()
+    protected function getEndpoint()
     {
+        return false;
     }
 
     /**
