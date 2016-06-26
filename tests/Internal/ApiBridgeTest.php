@@ -25,7 +25,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
     public function testPublicGetApi()
     {
-        $response = $this->api->call(ApiBridge::METHOD_GET, '/datacenters');
+        $response = $this->api->call(ApiBridge::METHOD_GET, '/datacenters', ['page' => 1]);
 
         self::assertArrayHasKey('page', $response);
         self::assertArrayHasKey('total_pages', $response);
@@ -68,7 +68,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
         $method = new \ReflectionMethod(ApiBridge::class, 'retrieveErrors');
         $method->setAccessible(true);
-        $errors = $method->invokeArgs($this->api, [json_decode($json, true)]);
+        $errors = $method->invoke($this->api, json_decode($json, true));
 
         self::assertEquals($expected, $errors);
     }
@@ -83,7 +83,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
         $method = new \ReflectionMethod(ApiBridge::class, 'retrieveErrors');
         $method->setAccessible(true);
-        $errors = $method->invokeArgs($this->api, [json_decode($json, true)]);
+        $errors = $method->invoke($this->api, json_decode($json, true));
 
         self::assertEquals($expected, $errors);
     }
@@ -104,7 +104,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
         $method = new \ReflectionMethod(ApiBridge::class, 'retrieveErrors');
         $method->setAccessible(true);
-        $errors = $method->invokeArgs($this->api, [json_decode($json, true)]);
+        $errors = $method->invoke($this->api, json_decode($json, true));
 
         self::assertEquals($expected, $errors);
     }
@@ -125,7 +125,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
         $method = new \ReflectionMethod(ApiBridge::class, 'retrieveErrors');
         $method->setAccessible(true);
-        $errors = $method->invokeArgs($this->api, [json_decode($json, true)]);
+        $errors = $method->invoke($this->api, json_decode($json, true));
 
         self::assertEquals($expected, $errors);
     }
@@ -138,7 +138,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
         $method = new \ReflectionMethod(ApiBridge::class, 'retrieveErrors');
         $method->setAccessible(true);
-        $errors = $method->invokeArgs($this->api, [json_decode($json, true)]);
+        $errors = $method->invoke($this->api, json_decode($json, true));
 
         self::assertEquals($expected, $errors);
     }
@@ -159,7 +159,7 @@ class ApiBridgeTest extends \PHPUnit_Framework_TestCase
 
         $method = new \ReflectionMethod(ApiBridge::class, 'getErrors');
         $method->setAccessible(true);
-        $errors = $method->invokeArgs($this->api, [json_decode($json, true)]);
+        $errors = $method->invoke($this->api, json_decode($json, true));
 
         self::assertEquals($expected, $errors);
     }

@@ -72,8 +72,13 @@ final class ApiBridge
             CURLOPT_RETURNTRANSFER => true,
         ];
 
-        if ($method !== self::METHOD_GET && count($parameters) !== 0) {
-            $options[CURLOPT_POSTFIELDS] = json_encode($parameters);
+        if (count($parameters) !== 0) {
+            if ($method === self::METHOD_GET) {
+                $options[CURLOPT_URL] .= '?' . http_build_query($parameters);
+            }
+            else {
+                $options[CURLOPT_POSTFIELDS] = json_encode($parameters);
+            }
         }
 
         if ($method === self::METHOD_POST) {

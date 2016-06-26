@@ -36,13 +36,14 @@ final class LinodeClient implements LinodeClientInterface
      * Performs API GET call as specified.
      *
      * @param   string $endpoint API endpoint.
+     * @param   int    $page     Optional page number.
      *
      * @return  array Decoded JSON response otherwise.
      * @throws  LinodeException
      */
-    public function apiGet($endpoint)
+    public function apiGet($endpoint, $page = null)
     {
-        return $this->api->call(ApiBridge::METHOD_GET, $endpoint);
+        return $this->api->call(ApiBridge::METHOD_GET, $endpoint, $page === null ? [] : ['page' => $page]);
     }
 
     /**
