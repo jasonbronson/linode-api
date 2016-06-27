@@ -104,6 +104,7 @@ final class LinodeClient implements LinodeClientInterface
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
         $reflectionMethod = new \ReflectionMethod(Internal\AbstractObject::class, '__construct');
+        $reflectionMethod->setAccessible(true);
         $reflectionMethod->invoke($object, $this);
 
         /** @noinspection PhpParamsInspection */

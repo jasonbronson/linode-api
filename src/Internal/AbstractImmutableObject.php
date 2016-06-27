@@ -14,6 +14,8 @@ namespace Linode\Internal;
 use Linode\LinodeClient;
 use Linode\ValidationException;
 
+/** @noinspection SingletonFactoryPatternViolationInspection */
+
 /**
  * A Linode object to represent an individual read-only resource.
  *
@@ -29,7 +31,7 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
      *
      * @throws  ValidationException
      */
-    public function __construct(LinodeClient $client, array $data = [])
+    protected function __construct(LinodeClient $client, array $data = [])
     {
         parent::__construct($client);
 

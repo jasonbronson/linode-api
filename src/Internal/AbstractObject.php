@@ -14,6 +14,8 @@ namespace Linode\Internal;
 use Linode\LinodeClient;
 use Symfony\Component\Validator\Validation;
 
+/** @noinspection SingletonFactoryPatternViolationInspection */
+
 /**
  * A Linode object to represent an individual resource.
  *
@@ -37,7 +39,7 @@ abstract class AbstractObject implements ObjectInterface
      *
      * @param   LinodeClient $client Linode API client.
      */
-    public function __construct(LinodeClient $client)
+    protected function __construct(LinodeClient $client)
     {
         $this->client = $client;
 

@@ -12,6 +12,7 @@
 namespace Tests\Linode\Internal;
 
 use Linode\Internal\AbstractImmutableObject;
+use Linode\LinodeClient;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -21,6 +22,14 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class ImmutableObjectStub extends AbstractImmutableObject
 {
     protected $flag;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(LinodeClient $client, array $data = [])
+    {
+        parent::__construct($client, $data);
+    }
 
     /**
      * {@inheritdoc}

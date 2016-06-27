@@ -102,6 +102,7 @@ class Collection implements \Countable, \Iterator
             }
 
             $reflectionMethod = new \ReflectionMethod(Internal\AbstractImmutableObject::class, '__construct');
+            $reflectionMethod->setAccessible(true);
             $reflectionMethod->invoke($object, $this->client, $data);
 
             $this->items[] = $object;
