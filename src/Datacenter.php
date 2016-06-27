@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * A Linode datacenter.
  *
- * @property    string  $id          A string.
+ * @property    string  $id          A unique ID.
  * @property    string  $datacenter  Datacenter alias (@see "Linode\Enum\DatacenterEnum").
  * @property    string  $label       Human-friendly datacenter name.
  */

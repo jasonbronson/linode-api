@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * A service available for purchase from Linode.
  *
- * @property    string  $id             A string.
+ * @property    string  $id             A unique ID.
  * @property    string  $service_type   The type of service offered.
  * @property    string  $label          Human-friendly name of this service.
  * @property    string  $hourly_price   Cost (in cents) per hour.

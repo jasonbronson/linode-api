@@ -85,7 +85,16 @@ class Collection implements \Countable, \Iterator
         $this->total_results = $response['total_results'];
 
         foreach ($response[$this->key] as $data) {
-            $this->items[] = new $this->class($this->client, $data);
+
+            $reflectionClass = new \ReflectionClass($this->class);
+
+            /** @var Internal\AbstractImmutableObject $object */
+            $object = $reflectionClass->newInstanceWithoutConstructor();
+
+            $reflectionMethod = new \ReflectionMethod(Internal\AbstractImmutableObject::class, '__construct');
+            $reflectionMethod->invoke($object, $this->client, $data);
+
+            $this->items[] = $object;
         }
     }
 

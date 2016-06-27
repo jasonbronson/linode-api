@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * A Linux distribution supported by Linode.
  *
- * @property    string  $id                  A string.
+ * @property    string  $id                  A unique ID.
  * @property    string  $label               The user-friendly name of this distribution.
  * @property    string  $vendor              The upstream distribution vendor. Consistent between releases of a distro.
  * @property    string  $created             ISO 8601 datetime.

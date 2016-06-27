@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * A Linux kernel that can be booted on a Linode.
  *
- * @property    string  $id           A string.
+ * @property    string  $id           A unique ID.
  * @property    string  $label        The user-friendly name of this kernel.
  * @property    string  $version      Linux Kernel version.
  * @property    string  $description  Additional, descriptive text about the kernel.
