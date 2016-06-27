@@ -22,13 +22,6 @@ use Linode\ValidationException;
 abstract class AbstractImmutableObject extends AbstractObject implements ImmutableObjectInterface
 {
     /**
-     * Returns API endpoint to retrieve the object.
-     *
-     * @return  string|false
-     */
-    abstract protected function getEndpoint();
-
-    /**
      * Initializes object properties with values from specified associated array.
      *
      * @param   LinodeClient $client Linode API client.
@@ -53,7 +46,7 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
     protected function initialize(array $data = [])
     {
         foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (property_exists($this, $key) && $key !== 'id') {
                 $this->$key = $value;
             }
         }
@@ -113,10 +106,8 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
      */
     public function refresh()
     {
-        $endpoint = $this->getEndpoint();
-
-        if ($endpoint !== false) {
-            $result = $this->client->apiGet($endpoint);
+        if ($this->id !== null) {
+            $result = $this->client->apiGet($this->getEndpoint());
             $this->initialize($result);
         }
     }

@@ -11,17 +11,24 @@
 
 namespace Tests\Linode\Internal;
 
-use Linode\Internal\AbstractMutableObject;
-use Linode\Internal\ValidatedObjectInterface;
+use Linode\Internal\AbstractImmutableObject;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @property    bool $flag
  */
-class TestMutableObject extends AbstractMutableObject implements ValidatedObjectInterface
+class ImmutableObjectStub extends AbstractImmutableObject
 {
     protected $flag;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEndpoint()
+    {
+        return rtrim('/tests/' . $this->id, '/');
+    }
 
     /**
      * {@inheritdoc}
@@ -32,27 +39,5 @@ class TestMutableObject extends AbstractMutableObject implements ValidatedObject
             new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEndpoint()
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function save()
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete()
-    {
     }
 }

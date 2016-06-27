@@ -25,10 +25,7 @@ class DistributionTest extends \PHPUnit_Framework_TestCase
         /** @var Distribution $distribution */
         $distribution = $reflectionClass->newInstanceWithoutConstructor();
 
-        $method = new \ReflectionMethod(Distribution::class, 'getEndpoint');
-        $method->setAccessible(true);
-
-        self::assertFalse($method->invoke($distribution));
+        self::assertEquals('/distributions', $distribution->getEndpoint());
 
         /** @noinspection PhpParamsInspection */
         $object = AltrEgo::create($distribution);
@@ -36,6 +33,6 @@ class DistributionTest extends \PHPUnit_Framework_TestCase
         /** @var \StdClass $object */
         $object->id = $id;
 
-        self::assertEquals('/distributions/' . $id, $method->invoke($distribution));
+        self::assertEquals('/distributions/' . $id, $distribution->getEndpoint());
     }
 }

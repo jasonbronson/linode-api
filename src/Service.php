@@ -11,15 +11,12 @@
 
 namespace Linode;
 
-use Linode\Internal\AbstractImmutableObject;
-use Linode\Internal\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * A service available for purchase from Linode.
  *
- * @property    string  $id             A unique ID.
  * @property    string  $service_type   The type of service offered.
  * @property    string  $label          Human-friendly name of this service.
  * @property    string  $hourly_price   Cost (in cents) per hour.
@@ -30,9 +27,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    string  $transfer       If applicable, outbound transfer in MB.
  * @property    string  $mbits_out      If applicable, Mbits outbound bandwidth.
  */
-class Service extends AbstractImmutableObject implements ValidatedObjectInterface
+class Service extends Internal\AbstractImmutableObject
 {
-    protected $id;
     protected $service_type;
     protected $label;
     protected $hourly_price;
@@ -46,13 +42,16 @@ class Service extends AbstractImmutableObject implements ValidatedObjectInterfac
     /**
      * {@inheritdoc}
      */
+    public function getEndpoint()
+    {
+        return rtrim('/services/' . $this->id, '/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('id', [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\NotNull(),
-        ]);
-
         $metadata->addPropertyConstraints('service_type', [
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
@@ -101,13 +100,5 @@ class Service extends AbstractImmutableObject implements ValidatedObjectInterfac
             new Constraints\Type(['type' => 'int']),
             new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEndpoint()
-    {
-        return $this->id === null ? false : '/services/' . $this->id;
     }
 }

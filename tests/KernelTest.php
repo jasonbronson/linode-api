@@ -25,10 +25,7 @@ class KernelTest extends \PHPUnit_Framework_TestCase
         /** @var Kernel $kernel */
         $kernel = $reflectionClass->newInstanceWithoutConstructor();
 
-        $method = new \ReflectionMethod(Kernel::class, 'getEndpoint');
-        $method->setAccessible(true);
-
-        self::assertFalse($method->invoke($kernel));
+        self::assertEquals('/kernels', $kernel->getEndpoint());
 
         /** @noinspection PhpParamsInspection */
         $object = AltrEgo::create($kernel);
@@ -36,6 +33,6 @@ class KernelTest extends \PHPUnit_Framework_TestCase
         /** @var \StdClass $object */
         $object->id = $id;
 
-        self::assertEquals('/kernels/' . $id, $method->invoke($kernel));
+        self::assertEquals('/kernels/' . $id, $kernel->getEndpoint());
     }
 }

@@ -25,10 +25,7 @@ class DatacenterTest extends \PHPUnit_Framework_TestCase
         /** @var Datacenter $datacenter */
         $datacenter = $reflectionClass->newInstanceWithoutConstructor();
 
-        $method = new \ReflectionMethod(Datacenter::class, 'getEndpoint');
-        $method->setAccessible(true);
-
-        self::assertFalse($method->invoke($datacenter));
+        self::assertEquals('/datacenters', $datacenter->getEndpoint());
 
         /** @noinspection PhpParamsInspection */
         $object = AltrEgo::create($datacenter);
@@ -36,6 +33,6 @@ class DatacenterTest extends \PHPUnit_Framework_TestCase
         /** @var \StdClass $object */
         $object->id = $id;
 
-        self::assertEquals('/datacenters/' . $id, $method->invoke($datacenter));
+        self::assertEquals('/datacenters/' . $id, $datacenter->getEndpoint());
     }
 }

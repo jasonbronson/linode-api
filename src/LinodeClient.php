@@ -101,7 +101,6 @@ final class LinodeClient implements LinodeClientInterface
     {
         $reflectionClass = new \ReflectionClass($class);
 
-        /** @var Internal\AbstractImmutableObject $object */
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
         $reflectionMethod = new \ReflectionMethod(Internal\AbstractObject::class, '__construct');
@@ -113,6 +112,7 @@ final class LinodeClient implements LinodeClientInterface
         /** @var \StdClass $reflectionObject */
         $reflectionObject->id = $id;
 
+        /** @var Internal\AbstractImmutableObject $object */
         $object->refresh();
 
         return $object;

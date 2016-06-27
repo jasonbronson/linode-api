@@ -25,10 +25,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /** @var Service $service */
         $service = $reflectionClass->newInstanceWithoutConstructor();
 
-        $method = new \ReflectionMethod(Service::class, 'getEndpoint');
-        $method->setAccessible(true);
-
-        self::assertFalse($method->invoke($service));
+        self::assertEquals('/services', $service->getEndpoint());
 
         /** @noinspection PhpParamsInspection */
         $object = AltrEgo::create($service);
@@ -36,6 +33,6 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \StdClass $object */
         $object->id = $id;
 
-        self::assertEquals('/services/' . $id, $method->invoke($service));
+        self::assertEquals('/services/' . $id, $service->getEndpoint());
     }
 }

@@ -16,8 +16,16 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * An object with data being validated.
  */
-interface ValidatedObjectInterface
+interface ObjectInterface
 {
+    /**
+     * Returns API endpoint for the object.
+     * If the object is new (no ID is set yet), should return an endpoint for creation.
+     *
+     * @return  string
+     */
+    public function getEndpoint();
+
     /**
      * Loads validation constraints for object properties.
      *

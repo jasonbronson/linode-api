@@ -11,9 +11,10 @@
 
 namespace Tests\Linode\Internal;
 
+use AltrEgo\AltrEgo;
 use Linode\LinodeClient;
 
-class AbstractObjectTest extends \PHPUnit_Framework_TestCase
+class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
 {
     /** @var LinodeClient */
     private $client;
@@ -26,7 +27,7 @@ class AbstractObjectTest extends \PHPUnit_Framework_TestCase
     public function testConstructorValidData()
     {
         /** @var \StdClass $object */
-        $object = new TestImmutableObject($this->client, ['flag' => true]);
+        $object = new ImmutableObjectStub($this->client, ['flag' => true]);
 
         self::assertTrue(isset($object->flag));
         self::assertFalse(isset($object->unknown));
@@ -40,7 +41,7 @@ class AbstractObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorInvalidData()
     {
-        new TestImmutableObject($this->client, ['flag' => 'true']);
+        new ImmutableObjectStub($this->client, ['flag' => 'true']);
     }
 
     /**
@@ -49,15 +50,7 @@ class AbstractObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorEmptyData()
     {
-        new TestImmutableObject($this->client);
-    }
-
-    public function testMutableProperty()
-    {
-        $object       = new TestMutableObject($this->client, ['flag' => true]);
-        $object->flag = false;
-
-        self::assertFalse($object->flag);
+        new ImmutableObjectStub($this->client);
     }
 
     /**
@@ -66,26 +59,22 @@ class AbstractObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testImmutableProperty()
     {
-        $object       = new TestImmutableObject($this->client, ['flag' => true]);
+        $object       = new ImmutableObjectStub($this->client, ['flag' => true]);
         $object->flag = false;
-    }
-
-    /**
-     * @expectedException \Linode\ValidationException
-     * @expectedExceptionMessage [flag] This value should not be null.
-     */
-    public function testMutablePropertyException()
-    {
-        $object       = new TestMutableObject($this->client, ['flag' => true]);
-        $object->flag = null;
     }
 
     public function testGetEndpoint()
     {
-        $method = new \ReflectionMethod(TestImmutableObject::class, 'getEndpoint');
-        $method->setAccessible(true);
+        $object = new ImmutableObjectStub($this->client, ['flag' => true]);
 
-        $object = new TestImmutableObject($this->client, ['flag' => true]);
-        self::assertEquals('/flags', $method->invoke($object));
+        self::assertEquals('/tests', $object->getEndpoint());
+
+        /** @noinspection PhpParamsInspection */
+        $reflectionObject = AltrEgo::create($object);
+
+        /** @var \StdClass $reflectionObject */
+        $reflectionObject->id = 'test_123';
+
+        self::assertEquals('/tests/test_123', $object->getEndpoint());
     }
 }

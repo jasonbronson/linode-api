@@ -11,15 +11,12 @@
 
 namespace Linode;
 
-use Linode\Internal\AbstractImmutableObject;
-use Linode\Internal\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * A Linux kernel that can be booted on a Linode.
  *
- * @property    string  $id           A unique ID.
  * @property    string  $label        The user-friendly name of this kernel.
  * @property    string  $version      Linux Kernel version.
  * @property    string  $description  Additional, descriptive text about the kernel.
@@ -30,9 +27,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    bool    $xen          TRUE if this kernel is suitable for Xen Linodes.
  * @property    bool    $deprecated   TRUE if this kernel is deprecated.
  */
-class Kernel extends AbstractImmutableObject implements ValidatedObjectInterface
+class Kernel extends Internal\AbstractImmutableObject
 {
-    protected $id;
     protected $label;
     protected $version;
     protected $description;
@@ -46,13 +42,16 @@ class Kernel extends AbstractImmutableObject implements ValidatedObjectInterface
     /**
      * {@inheritdoc}
      */
+    public function getEndpoint()
+    {
+        return rtrim('/kernels/' . $this->id, '/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('id', [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\NotNull(),
-        ]);
-
         $metadata->addPropertyConstraints('label', [
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
@@ -95,13 +94,5 @@ class Kernel extends AbstractImmutableObject implements ValidatedObjectInterface
             new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEndpoint()
-    {
-        return $this->id === null ? false : '/kernels/' . $this->id;
     }
 }

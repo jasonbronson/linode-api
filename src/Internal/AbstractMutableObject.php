@@ -21,6 +21,8 @@ use Linode\ValidationException;
 abstract class AbstractMutableObject extends AbstractImmutableObject implements MutableObjectInterface
 {
     /**
+     * Sets new value of specified property.
+     *
      * @param   string $name
      * @param   string $value
      *
@@ -28,6 +30,10 @@ abstract class AbstractMutableObject extends AbstractImmutableObject implements 
      */
     public function __set($name, $value)
     {
+        if ($name === 'id') {
+            throw new ValidationException('[id] This property is immutable.');
+        }
+
         if (property_exists($this, $name)) {
 
             $violations = $this->validator->validatePropertyValue($this, $name, $value);

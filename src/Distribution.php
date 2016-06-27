@@ -11,15 +11,12 @@
 
 namespace Linode;
 
-use Linode\Internal\AbstractImmutableObject;
-use Linode\Internal\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * A Linux distribution supported by Linode.
  *
- * @property    string  $id                  A unique ID.
  * @property    string  $label               The user-friendly name of this distribution.
  * @property    string  $vendor              The upstream distribution vendor. Consistent between releases of a distro.
  * @property    string  $created             ISO 8601 datetime.
@@ -28,9 +25,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    bool    $recommended         TRUE if this distribution is recommended by Linode.
  * @property    bool    $experimental        TRUE if this distribution is a beta or preview release.
  */
-class Distribution extends AbstractImmutableObject implements ValidatedObjectInterface
+class Distribution extends Internal\AbstractImmutableObject
 {
-    protected $id;
     protected $label;
     protected $vendor;
     protected $created;
@@ -42,13 +38,16 @@ class Distribution extends AbstractImmutableObject implements ValidatedObjectInt
     /**
      * {@inheritdoc}
      */
+    public function getEndpoint()
+    {
+        return rtrim('/distributions/' . $this->id, '/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('id', [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\NotNull(),
-        ]);
-
         $metadata->addPropertyConstraints('label', [
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
@@ -84,13 +83,5 @@ class Distribution extends AbstractImmutableObject implements ValidatedObjectInt
             new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEndpoint()
-    {
-        return $this->id === null ? false : '/distributions/' . $this->id;
     }
 }

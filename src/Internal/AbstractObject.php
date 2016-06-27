@@ -18,14 +18,19 @@ use Symfony\Component\Validator\Validation;
  * A Linode object to represent an individual resource.
  *
  * This class should not be used or overwritten in userland code.
+ *
+ * @property-read   string  $id  Unique resource ID.
  */
-abstract class AbstractObject
+abstract class AbstractObject implements ObjectInterface
 {
     /** @var LinodeClient */
     protected $client;
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
     protected $validator;
+
+    /** @var string */
+    protected $id;
 
     /**
      * Initializes object.

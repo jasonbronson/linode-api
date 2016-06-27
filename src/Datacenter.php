@@ -11,34 +11,33 @@
 
 namespace Linode;
 
-use Linode\Internal\AbstractImmutableObject;
-use Linode\Internal\ValidatedObjectInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * A Linode datacenter.
  *
- * @property    string  $id          A unique ID.
  * @property    string  $datacenter  Datacenter alias (@see "Linode\Enum\DatacenterEnum").
  * @property    string  $label       Human-friendly datacenter name.
  */
-class Datacenter extends AbstractImmutableObject implements ValidatedObjectInterface
+class Datacenter extends Internal\AbstractImmutableObject
 {
-    protected $id;
     protected $datacenter;
     protected $label;
 
     /**
      * {@inheritdoc}
      */
+    public function getEndpoint()
+    {
+        return rtrim('/datacenters/' . $this->id, '/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('id', [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\NotNull(),
-        ]);
-
         $metadata->addPropertyConstraints('datacenter', [
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
@@ -49,13 +48,5 @@ class Datacenter extends AbstractImmutableObject implements ValidatedObjectInter
             new Constraints\Type(['type' => 'string']),
             new Constraints\NotNull(),
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEndpoint()
-    {
-        return $this->id === null ? false : '/datacenters/' . $this->id;
     }
 }
