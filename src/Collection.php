@@ -11,8 +11,6 @@
 
 namespace Linode;
 
-use AltrEgo\AltrEgo;
-
 /**
  * Collection of data objects.
  */
@@ -88,22 +86,9 @@ class Collection implements \Countable, \Iterator
 
         foreach ($response[$this->key] as $data) {
 
-            $reflectionClass = new \ReflectionClass($this->class);
-
-            $object = $reflectionClass->newInstanceWithoutConstructor();
-
-            if (array_key_exists('id', $data)) {
-
-                /** @noinspection PhpParamsInspection */
-                $reflectionObject = AltrEgo::create($object);
-
-                /** @var \StdClass $reflectionObject */
-                $reflectionObject->id = $data['id'];
-            }
-
-            $reflectionMethod = new \ReflectionMethod(Internal\AbstractImmutableObject::class, '__construct');
+            $reflectionMethod = new \ReflectionMethod($this->class, 'getInstance');
             $reflectionMethod->setAccessible(true);
-            $reflectionMethod->invoke($object, $this->client, $data);
+            $object = $reflectionMethod->invoke(null, $this->client, $data['id'], $data);
 
             $this->items[] = $object;
         }

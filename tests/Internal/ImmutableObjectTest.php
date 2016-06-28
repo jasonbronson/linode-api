@@ -53,6 +53,17 @@ class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
         new ImmutableObjectStub($this->client);
     }
 
+    public function testGetInstance()
+    {
+        $reflectionMethod = new \ReflectionMethod(ImmutableObjectStub::class, 'getInstance');
+        $reflectionMethod->setAccessible(true);
+        $object = $reflectionMethod->invoke(null, $this->client, 'test', ['flag' => true]);
+
+        self::assertInstanceOf(ImmutableObjectStub::class, $object);
+        self::assertEquals('test', $object->id);
+        self::assertTrue($object->flag);
+    }
+
     /**
      * @expectedException \Linode\ValidationException
      * @expectedExceptionMessage This object is immutable.
