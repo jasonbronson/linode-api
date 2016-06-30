@@ -29,10 +29,10 @@ class FilesystemEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::RAW  => 'No filesystem, just a raw binary stream',
-            self::SWAP => 'Linux swap area',
-            self::EXT3 => 'The ext3 journaling filesystem for Linux',
-            self::EXT4 => 'The ext4 journaling filesystem for Linux',
+            self::RAW  => null,
+            self::SWAP => null,
+            self::EXT3 => null,
+            self::EXT4 => null,
         ];
     }
 }

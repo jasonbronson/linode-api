@@ -32,13 +32,13 @@ class DnsZoneRecordEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::A     => 'Address Mapping Record',
-            self::AAAA  => 'IP Version 6 Address Record',
-            self::NS    => 'Name Server Record',
-            self::MX    => 'Mail Exchanger Record',
-            self::CNAME => 'Canonical Name Record',
-            self::TXT   => 'Text Record',
-            self::SRV   => 'Service Record',
+            self::A     => null,
+            self::AAAA  => null,
+            self::NS    => null,
+            self::MX    => null,
+            self::CNAME => null,
+            self::TXT   => null,
+            self::SRV   => null,
         ];
     }
 }

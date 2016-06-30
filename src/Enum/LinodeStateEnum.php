@@ -33,14 +33,14 @@ class LinodeStateEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::OFFLINE       => 'The Linode is powered off',
-            self::BOOTING       => 'The Linode is currently booting up',
-            self::RUNNING       => 'The Linode is currently running',
-            self::SHUTTING_DOWN => 'The Linode is currently shutting down',
-            self::REBOOTING     => 'The Linode is rebooting',
-            self::PROVISIONING  => 'The Linode is being created',
-            self::DELETING      => 'The Linode is being deleted',
-            self::MIGRATING     => 'The Linode is being migrated to a new host/datacenter',
+            self::OFFLINE       => null,
+            self::BOOTING       => null,
+            self::RUNNING       => null,
+            self::SHUTTING_DOWN => null,
+            self::REBOOTING     => null,
+            self::PROVISIONING  => null,
+            self::DELETING      => null,
+            self::MIGRATING     => null,
         ];
     }
 }

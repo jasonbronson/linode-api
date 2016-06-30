@@ -27,8 +27,8 @@ class BackupTypeEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::AUTO     => 'Automatic backup',
-            self::SNAPSHOT => 'User-initiated, manual file backup',
+            self::AUTO     => null,
+            self::SNAPSHOT => null,
         ];
     }
 }

@@ -29,10 +29,10 @@ class ServiceTypeEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::LINODE       => 'A Linode service',
-            self::BACKUP       => 'A backup service',
-            self::NODEBALANCER => 'A NodeBalancer service',
-            self::LONGVIEW     => 'A Longview subscription',
+            self::LINODE       => null,
+            self::BACKUP       => null,
+            self::NODEBALANCER => null,
+            self::LONGVIEW     => null,
         ];
     }
 }

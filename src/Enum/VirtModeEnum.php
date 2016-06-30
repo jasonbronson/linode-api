@@ -27,8 +27,8 @@ class VirtModeEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::FULLVIRT => 'Complete system virtualization',
-            self::PARAVIRT => 'Some hardware is unvirtualized; often faster than fullvirt',
+            self::FULLVIRT => null,
+            self::PARAVIRT => null,
         ];
     }
 }

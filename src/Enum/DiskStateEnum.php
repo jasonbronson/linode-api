@@ -36,17 +36,17 @@ class DiskStateEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::OK                   => 'No disk jobs are running',
-            self::DELETING             => 'This disk is being deleted',
-            self::CREATING             => 'This disk is being created',
-            self::MIGRATING            => 'This disk is being migrated',
-            self::CANCELLING_MIGRATION => 'The disk migration is being cancelled',
-            self::DUPLICATING          => 'This disk is being duplicated',
-            self::RESIZING             => 'This disk is being resized',
-            self::RESTORING            => 'This disk is being restored',
-            self::COPYING              => 'This disk is being copied',
-            self::FREEZING             => 'This disk is being frozen',
-            self::THAWING              => 'This disk is being thawed',
+            self::OK                   => null,
+            self::DELETING             => null,
+            self::CREATING             => null,
+            self::MIGRATING            => null,
+            self::CANCELLING_MIGRATION => null,
+            self::DUPLICATING          => null,
+            self::RESIZING             => null,
+            self::RESTORING            => null,
+            self::COPYING              => null,
+            self::FREEZING             => null,
+            self::THAWING              => null,
         ];
     }
 }

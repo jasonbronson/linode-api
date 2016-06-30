@@ -31,12 +31,12 @@ class BackupStatusEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::PENDING             => 'Backup is in the queue and waiting to begin',
-            self::RUNNING             => 'Linode in the process of being backed up',
-            self::NEEDSPOSTPROCESSING => 'Backups awaiting final integration into existing backup data',
-            self::SUCCESSFUL          => 'Backup successfully completed',
-            self::FAILED              => 'Linode backup failed',
-            self::USERABORTED         => 'User aborted current backup process',
+            self::PENDING             => null,
+            self::RUNNING             => null,
+            self::NEEDSPOSTPROCESSING => null,
+            self::SUCCESSFUL          => null,
+            self::FAILED              => null,
+            self::USERABORTED         => null,
         ];
     }
 }

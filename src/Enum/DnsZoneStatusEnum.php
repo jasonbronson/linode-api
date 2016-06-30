@@ -28,9 +28,9 @@ class DnsZoneStatusEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::ACTIVE    => 'Turn on serving of this DNS Zone',
-            self::DISABLED  => 'Turn off serving of this DNS Zone',
-            self::EDIT_MODE => 'Use this mode while making edits',
+            self::ACTIVE    => null,
+            self::DISABLED  => null,
+            self::EDIT_MODE => null,
         ];
     }
 }

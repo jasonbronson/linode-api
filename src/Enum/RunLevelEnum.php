@@ -28,9 +28,9 @@ class RunLevelEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::NORMAL  => 'Normal multi-user boot mode',
-            self::SINGLE  => 'Single user boot mode',
-            self::BINBASH => 'Boots to a root bash shell',
+            self::NORMAL  => null,
+            self::SINGLE  => null,
+            self::BINBASH => null,
         ];
     }
 }

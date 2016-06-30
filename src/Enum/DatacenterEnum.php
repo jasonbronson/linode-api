@@ -33,14 +33,14 @@ class DatacenterEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::DALLAS    => 'Dallas, TX',
-            self::FREMONT   => 'Fremont, CA',
-            self::ATLANTA   => 'Atlanta, GA',
-            self::NEWARK    => 'Newark, NJ',
-            self::LONDON    => 'London, UK',
-            self::TOKYO     => 'Tokyo, JP',
-            self::SINGAPORE => 'Singapore, SG',
-            self::FRANKFURT => 'Frankfurt, DE',
+            self::DALLAS    => null,
+            self::FREMONT   => null,
+            self::ATLANTA   => null,
+            self::NEWARK    => null,
+            self::LONDON    => null,
+            self::TOKYO     => null,
+            self::SINGAPORE => null,
+            self::FRANKFURT => null,
         ];
     }
 }

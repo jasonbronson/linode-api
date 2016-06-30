@@ -27,8 +27,8 @@ class DnsZoneTypeEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::MASTER => 'A primary, authoritative DNS zone',
-            self::SLAVE  => 'A secondary DNS zone which gets its updates from a master DNS zone',
+            self::MASTER => null,
+            self::SLAVE  => null,
         ];
     }
 }
