@@ -13,6 +13,7 @@ namespace Tests\Linode;
 
 use Linode\Datacenter;
 use Linode\Distribution;
+use Linode\DnsZone;
 use Linode\Enum\ServiceTypeEnum;
 use Linode\Kernel;
 use Linode\LinodeClient;
@@ -105,5 +106,20 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Service::class, $object);
         self::assertEquals('Linode 1024', $object->label);
+    }
+
+    public function testGetDnsZones()
+    {
+        $collection = $this->client->getDnsZones();
+
+        self::assertCount(3, $collection);
+    }
+
+    public function testFindDnsZone()
+    {
+        $object = $this->client->findDnsZone('dnszone_1');
+
+        self::assertInstanceOf(DnsZone::class, $object);
+        self::assertEquals('example.com', $object->dnszone);
     }
 }

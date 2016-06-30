@@ -183,4 +183,20 @@ final class LinodeClient implements LinodeClientInterface
     {
         return $this->findObject(Service::class, $id);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDnsZones()
+    {
+        return new Collection($this, '/dnszones', DnsZone::class, 'dnszones');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findDnsZone($id)
+    {
+        return $this->findObject(DnsZone::class, $id);
+    }
 }

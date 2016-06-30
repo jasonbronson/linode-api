@@ -12,6 +12,8 @@
 namespace Linode\Enum;
 
 use Dictionary\StaticDictionary;
+use Linode\MasterDnsZone;
+use Linode\SlaveDnsZone;
 
 /**
  * DNS zone type.
@@ -27,8 +29,8 @@ class DnsZoneTypeEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::MASTER => null,
-            self::SLAVE  => null,
+            self::MASTER => MasterDnsZone::class,
+            self::SLAVE  => SlaveDnsZone::class,
         ];
     }
 }

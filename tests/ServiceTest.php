@@ -35,7 +35,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->setProtectedProperty($service, 'id', $id);
         self::assertEquals('/services/' . $id, $service->getEndpoint());
     }
-    
+
     public function testGetInstance()
     {
         $expected = [

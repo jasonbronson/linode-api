@@ -68,6 +68,15 @@ class ApiBridgeStub
             '/services/service_25' => [
                 ApiBridge::METHOD_GET => 'getLongviewService',
             ],
+            '/dnszones' => [
+                ApiBridge::METHOD_GET => 'getDnsZones',
+            ],
+            '/dnszones/dnszone_1' => [
+                ApiBridge::METHOD_GET => 'getMasterDnsZone',
+            ],
+            '/dnszones/dnszone_2' => [
+                ApiBridge::METHOD_GET => 'getSlaveDnsZone',
+            ],
         ];
 
         if (array_key_exists($endpoint, $endpoints)) {
@@ -276,5 +285,38 @@ class ApiBridgeStub
     protected function getLongviewService()
     {
         return '{"id": "service_25", "ram": null, "label": "Longview Pro 3 pack", "hourly_price": 3, "service_type": "longview", "transfer": null, "disk": null, "mbits_out": null, "vcpus": null, "monthly_price": 2000}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZones()
+    {
+        return '{"page": 1, "total_pages": 1, "total_results": 3, "dnszones": [
+                {"id": "dnszone_1", "axfr_ips": [], "refresh_sec": 0, "display_group": "", "soa_email": "admin@example.com", "expire_sec": 0, "type": "master", "dnszone": "example.com", "ttl_sec": 0, "retry_sec": 0, "status": "active", "master_ips": []}, 
+                {"id": "dnszone_2", "axfr_ips": [], "refresh_sec": 0, "display_group": "", "soa_email": "", "expire_sec": 0, "type": "slave", "dnszone": "example.net", "ttl_sec": 0, "retry_sec": 0, "status": "active", "master_ips": []}, 
+                {"id": "dnszone_3", "axfr_ips": [], "refresh_sec": 0, "display_group": "", "soa_email": "", "expire_sec": 0, "type": "slave", "dnszone": "example.org", "ttl_sec": 0, "retry_sec": 0, "status": "active", "master_ips": []}]}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getMasterDnsZone()
+    {
+        return '{"id": "dnszone_1", "axfr_ips": [], "refresh_sec": 0, "display_group": "", "soa_email": "admin@example.com", "expire_sec": 0, "type": "master", "dnszone": "example.com", "ttl_sec": 0, "retry_sec": 0, "status": "active", "master_ips": []}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getSlaveDnsZone()
+    {
+        return '{"id": "dnszone_2", "axfr_ips": [], "refresh_sec": 0, "display_group": "", "soa_email": "", "expire_sec": 0, "type": "slave", "dnszone": "example.net", "ttl_sec": 0, "retry_sec": 0, "status": "active", "master_ips": []}';
     }
 }
