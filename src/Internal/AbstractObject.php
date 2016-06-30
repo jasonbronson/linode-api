@@ -38,10 +38,12 @@ abstract class AbstractObject implements ObjectInterface
      * Initializes object.
      *
      * @param   LinodeClient $client Linode API client.
+     * @param   string       $id     Unique resource ID.
      */
-    protected function __construct(LinodeClient $client)
+    protected function __construct(LinodeClient $client, $id = null)
     {
         $this->client = $client;
+        $this->id     = $id;
 
         $this->validator = Validation::createValidatorBuilder()
             ->addMethodMapping('loadValidatorMetadata')

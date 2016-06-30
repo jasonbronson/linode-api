@@ -11,11 +11,12 @@
 
 namespace Tests\Linode;
 
-use AltrEgo\AltrEgo;
 use Linode\Service;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testGetEndpoint()
     {
         $id = mt_rand();
@@ -24,15 +25,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         /** @var Service $service */
         $service = $reflectionClass->newInstanceWithoutConstructor();
-
         self::assertEquals('/services', $service->getEndpoint());
 
-        /** @noinspection PhpParamsInspection */
-        $object = AltrEgo::create($service);
-
-        /** @var \StdClass $object */
-        $object->id = $id;
-
+        $this->setProtectedProperty($service, 'id', $id);
         self::assertEquals('/services/' . $id, $service->getEndpoint());
     }
 }

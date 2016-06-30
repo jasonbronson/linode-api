@@ -11,7 +11,6 @@
 
 namespace Linode;
 
-use AltrEgo\AltrEgo;
 use Linode\Enum\ServiceTypeEnum;
 use Linode\Internal\ApiBridge;
 
@@ -101,19 +100,13 @@ final class LinodeClient implements LinodeClientInterface
     {
         $reflectionClass = new \ReflectionClass($class);
 
+        /** @var Internal\AbstractImmutableObject $object */
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
         $reflectionMethod = new \ReflectionMethod(Internal\AbstractObject::class, '__construct');
         $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($object, $this);
+        $reflectionMethod->invoke($object, $this, $id);
 
-        /** @noinspection PhpParamsInspection */
-        $reflectionObject = AltrEgo::create($object);
-
-        /** @var \StdClass $reflectionObject */
-        $reflectionObject->id = $id;
-
-        /** @var Internal\AbstractImmutableObject $object */
         $object->refresh();
 
         return $object;

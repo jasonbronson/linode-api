@@ -11,7 +11,6 @@
 
 namespace Tests\Linode;
 
-use AltrEgo\AltrEgo;
 use Linode\Datacenter;
 use Linode\Distribution;
 use Linode\Enum\ServiceTypeEnum;
@@ -22,6 +21,8 @@ use Tests\Linode\Internal\ApiBridgeStub;
 
 class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     /** @var LinodeClient */
     private $client;
 
@@ -29,11 +30,7 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
     {
         $this->client = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
 
-        /** @noinspection PhpParamsInspection */
-        $client = AltrEgo::create($this->client);
-
-        /** @var \StdClass $client */
-        $client->api = new ApiBridgeStub();
+        $this->setProtectedProperty($this->client, 'api', new ApiBridgeStub());
     }
 
     public function testGetDatacenters()

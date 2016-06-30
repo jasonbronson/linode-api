@@ -11,11 +11,12 @@
 
 namespace Tests\Linode;
 
-use AltrEgo\AltrEgo;
 use Linode\Distribution;
 
 class DistributionTest extends \PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testGetEndpoint()
     {
         $id = mt_rand();
@@ -24,15 +25,9 @@ class DistributionTest extends \PHPUnit_Framework_TestCase
 
         /** @var Distribution $distribution */
         $distribution = $reflectionClass->newInstanceWithoutConstructor();
-
         self::assertEquals('/distributions', $distribution->getEndpoint());
 
-        /** @noinspection PhpParamsInspection */
-        $object = AltrEgo::create($distribution);
-
-        /** @var \StdClass $object */
-        $object->id = $id;
-
+        $this->setProtectedProperty($distribution, 'id', $id);
         self::assertEquals('/distributions/' . $id, $distribution->getEndpoint());
     }
 }

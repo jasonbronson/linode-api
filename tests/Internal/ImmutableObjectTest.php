@@ -11,11 +11,13 @@
 
 namespace Tests\Linode\Internal;
 
-use AltrEgo\AltrEgo;
 use Linode\LinodeClient;
+use Tests\Linode\TestTrait;
 
 class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     /** @var LinodeClient */
     private $client;
 
@@ -77,15 +79,9 @@ class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
     public function testGetEndpoint()
     {
         $object = new ImmutableObjectStub($this->client, ['flag' => true]);
-
         self::assertEquals('/tests', $object->getEndpoint());
 
-        /** @noinspection PhpParamsInspection */
-        $reflectionObject = AltrEgo::create($object);
-
-        /** @var \StdClass $reflectionObject */
-        $reflectionObject->id = 'test_123';
-
+        $this->setProtectedProperty($object, 'id', 'test_123');
         self::assertEquals('/tests/test_123', $object->getEndpoint());
     }
 }

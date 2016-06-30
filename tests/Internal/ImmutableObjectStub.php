@@ -28,7 +28,7 @@ class ImmutableObjectStub extends AbstractImmutableObject
      */
     public function __construct(LinodeClient $client, array $data = [])
     {
-        parent::__construct($client, $data);
+        parent::__construct($client, null, $data);
     }
 
     /**

@@ -11,11 +11,12 @@
 
 namespace Tests\Linode;
 
-use AltrEgo\AltrEgo;
 use Linode\Datacenter;
 
 class DatacenterTest extends \PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testGetEndpoint()
     {
         $id = mt_rand();
@@ -24,15 +25,9 @@ class DatacenterTest extends \PHPUnit_Framework_TestCase
 
         /** @var Datacenter $datacenter */
         $datacenter = $reflectionClass->newInstanceWithoutConstructor();
-
         self::assertEquals('/datacenters', $datacenter->getEndpoint());
 
-        /** @noinspection PhpParamsInspection */
-        $object = AltrEgo::create($datacenter);
-
-        /** @var \StdClass $object */
-        $object->id = $id;
-
+        $this->setProtectedProperty($datacenter, 'id', $id);
         self::assertEquals('/datacenters/' . $id, $datacenter->getEndpoint());
     }
 }

@@ -11,11 +11,12 @@
 
 namespace Tests\Linode;
 
-use AltrEgo\AltrEgo;
 use Linode\Kernel;
 
 class KernelTest extends \PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testGetEndpoint()
     {
         $id = mt_rand();
@@ -24,15 +25,9 @@ class KernelTest extends \PHPUnit_Framework_TestCase
 
         /** @var Kernel $kernel */
         $kernel = $reflectionClass->newInstanceWithoutConstructor();
-
         self::assertEquals('/kernels', $kernel->getEndpoint());
 
-        /** @noinspection PhpParamsInspection */
-        $object = AltrEgo::create($kernel);
-
-        /** @var \StdClass $object */
-        $object->id = $id;
-
+        $this->setProtectedProperty($kernel, 'id', $id);
         self::assertEquals('/kernels/' . $id, $kernel->getEndpoint());
     }
 }

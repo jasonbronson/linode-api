@@ -11,7 +11,6 @@
 
 namespace Linode\Internal;
 
-use AltrEgo\AltrEgo;
 use Linode\LinodeClient;
 use Linode\ValidationException;
 
@@ -28,13 +27,14 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
      * Initializes object properties with values from specified associated array.
      *
      * @param   LinodeClient $client Linode API client.
+     * @param   string       $id     Unique resource ID.
      * @param   array        $data   Object data.
      *
      * @throws  ValidationException
      */
-    protected function __construct(LinodeClient $client, array $data = [])
+    protected function __construct(LinodeClient $client, $id = null, array $data = [])
     {
-        parent::__construct($client);
+        parent::__construct($client, $id);
 
         $this->initialize($data);
     }
@@ -54,15 +54,9 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
 
         $object = $reflectionClass->newInstanceWithoutConstructor();
 
-        /** @noinspection PhpParamsInspection */
-        $reflectionObject = AltrEgo::create($object);
-
-        /** @var \StdClass $reflectionObject */
-        $reflectionObject->id = $id;
-
         $reflectionMethod = new \ReflectionMethod(self::class, '__construct');
         $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($object, $client, $data);
+        $reflectionMethod->invoke($object, $client, $id, $data);
 
         return $object;
     }
