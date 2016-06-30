@@ -90,8 +90,15 @@ class DnsZone extends Internal\AbstractImmutableObject
      */
     protected static function getInstance(LinodeClient $client, $id, array $data = [])
     {
-        $class = DnsZoneTypeEnum::get($data['type']);
+        switch ($data['type']) {
 
-        return new $class($client, $id, $data);
+            case DnsZoneTypeEnum::MASTER:
+                return new MasterDnsZone($client, $data['dnszone'], $data['soa_email']);
+
+            case DnsZoneTypeEnum::SLAVE:
+                return new SlaveDnsZone($client, $data['dnszone'], $data['master_ips']);
+        }
+
+        return new self($client, $id, $data);
     }
 }

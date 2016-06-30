@@ -32,6 +32,26 @@ class MasterDnsZone extends DnsZone
     protected $expire_sec;
 
     /**
+     * Creates new master zone.
+     *
+     * @param   LinodeClient $client    Linode API client.
+     * @param   string       $dnszone   The DNS Zone name.
+     * @param   string       $soa_email Start of Authority (SOA) contact email.
+     *
+     * @throws  ValidationException
+     */
+    public function __construct(LinodeClient $client, $dnszone, $soa_email)
+    {
+        parent::__construct($client, null, [
+            'type'      => Enum\DnsZoneTypeEnum::MASTER,
+            'status'    => Enum\DnsZoneStatusEnum::ACTIVE,
+            'dnszone'   => $dnszone,
+            'soa_email' => $soa_email,
+            'axfr_ips'  => [],
+        ]);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function loadValidatorMetadata(ClassMetadata $metadata)

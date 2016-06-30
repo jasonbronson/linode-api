@@ -24,6 +24,26 @@ class SlaveDnsZone extends DnsZone
     protected $master_ips;
 
     /**
+     * Creates new slave zone.
+     *
+     * @param   LinodeClient $client     Linode API client.
+     * @param   string       $dnszone    The DNS Zone name.
+     * @param   string[]     $master_ips An array of IP addresses for this DNS Zone.
+     *
+     * @throws  ValidationException
+     */
+    public function __construct(LinodeClient $client, $dnszone, array $master_ips = [])
+    {
+        parent::__construct($client, null, [
+            'type'       => Enum\DnsZoneTypeEnum::SLAVE,
+            'status'     => Enum\DnsZoneStatusEnum::ACTIVE,
+            'dnszone'    => $dnszone,
+            'master_ips' => $master_ips,
+            'axfr_ips'   => [],
+        ]);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
