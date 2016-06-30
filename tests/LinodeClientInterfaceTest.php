@@ -89,7 +89,7 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
     {
         $collection = $this->client->getServices();
 
-        self::assertCount(3, $collection);
+        self::assertCount(7, $collection);
     }
 
     public function testGetLinodeServices()

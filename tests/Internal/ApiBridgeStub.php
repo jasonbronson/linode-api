@@ -60,7 +60,13 @@ class ApiBridgeStub
                 ApiBridge::METHOD_GET => 'getLinodeServices',
             ],
             '/services/service_112' => [
-                ApiBridge::METHOD_GET => 'getService',
+                ApiBridge::METHOD_GET => 'getLinodeService',
+            ],
+            '/services/service_129' => [
+                ApiBridge::METHOD_GET => 'getBackupService',
+            ],
+            '/services/service_25' => [
+                ApiBridge::METHOD_GET => 'getLongviewService',
             ],
         ];
 
@@ -220,7 +226,11 @@ class ApiBridgeStub
      */
     protected function getServices()
     {
-        return '{"page": 1, "total_pages": 1, "total_results": 3, "services": [
+        return '{"page": 1, "total_pages": 1, "total_results": 7, "services": [
+                {"id": "service_25", "ram": null, "label": "Longview Pro 3 pack", "hourly_price": 3, "service_type": "longview", "transfer": null, "disk": null, "mbits_out": null, "vcpus": null, "monthly_price": 2000}, 
+                {"id": "service_26", "ram": null, "label": "Longview Pro 10 pack", "hourly_price": 6, "service_type": "longview", "transfer": null, "disk": null, "mbits_out": null, "vcpus": null, "monthly_price": 4000}, 
+                {"id": "service_27", "ram": null, "label": "Longview Pro 40 pack", "hourly_price": 15, "service_type": "longview", "transfer": null, "disk": null, "mbits_out": null, "vcpus": null, "monthly_price": 10000}, 
+                {"id": "service_28", "ram": null, "label": "Longview Pro 100 pack", "hourly_price": 30, "service_type": "longview", "transfer": null, "disk": null, "mbits_out": null, "vcpus": null, "monthly_price": 20000}, 
                 {"id": "service_112", "ram": 1024, "label": "Linode 1024", "hourly_price": 1, "service_type": "linode", "transfer": 2000, "disk": 24, "mbits_out": 25, "vcpus": 1, "monthly_price": 1000}, 
                 {"id": "service_117", "ram": 8192, "label": "Linode 8192", "hourly_price": 12, "service_type": "linode", "transfer": 8000, "disk": 192, "mbits_out": 1000, "vcpus": 6, "monthly_price": 8000}, 
                 {"id": "service_129", "ram": 8192, "label": "Backup Service - Linode 8192", "hourly_price": 3, "service_type": "backup", "transfer": 8000, "disk": 192, "mbits_out": null, "vcpus": null, "monthly_price": 2000}]}';
@@ -243,8 +253,28 @@ class ApiBridgeStub
      *
      * @return  string JSON response.
      */
-    protected function getService()
+    protected function getLinodeService()
     {
         return '{"id": "service_112", "ram": 1024, "label": "Linode 1024", "hourly_price": 1, "service_type": "linode", "transfer": 2000, "disk": 24, "mbits_out": 25, "vcpus": 1, "monthly_price": 1000}';
+    }
+
+    /**
+     * Emulates response from GET '/services/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getBackupService()
+    {
+        return '{"id": "service_129", "ram": 8192, "label": "Backup Service - Linode 8192", "hourly_price": 3, "service_type": "backup", "transfer": 8000, "disk": 192, "mbits_out": null, "vcpus": null, "monthly_price": 2000}';
+    }
+
+    /**
+     * Emulates response from GET '/services/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getLongviewService()
+    {
+        return '{"id": "service_25", "ram": null, "label": "Longview Pro 3 pack", "hourly_price": 3, "service_type": "longview", "transfer": null, "disk": null, "mbits_out": null, "vcpus": null, "monthly_price": 2000}';
     }
 }

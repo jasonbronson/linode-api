@@ -11,6 +11,7 @@
 
 namespace Linode;
 
+use Linode\Enum\ServiceTypeEnum;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -21,11 +22,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    string  $label          Human-friendly name of this service.
  * @property    string  $hourly_price   Cost (in cents) per hour.
  * @property    string  $monthly_price  Cost (in cents) per month.
- * @property    string  $ram            Amount of RAM included in this service.
- * @property    string  $vcpus          If applicable, number of CPU cores.
- * @property    string  $disk           If applicable, disk space in MB.
- * @property    string  $transfer       If applicable, outbound transfer in MB.
- * @property    string  $mbits_out      If applicable, Mbits outbound bandwidth.
  */
 class Service extends Internal\AbstractImmutableObject
 {
@@ -33,11 +29,6 @@ class Service extends Internal\AbstractImmutableObject
     protected $label;
     protected $hourly_price;
     protected $monthly_price;
-    protected $ram;
-    protected $vcpus;
-    protected $disk;
-    protected $transfer;
-    protected $mbits_out;
 
     /**
      * {@inheritdoc}
@@ -74,31 +65,15 @@ class Service extends Internal\AbstractImmutableObject
             new Constraints\NotNull(),
             new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
+    }
 
-        $metadata->addPropertyConstraints('ram', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\NotNull(),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
+    /**
+     * {@inheritdoc}
+     */
+    protected static function getInstance(LinodeClient $client, $id, array $data = [])
+    {
+        $class = ServiceTypeEnum::get($data['service_type']);
 
-        $metadata->addPropertyConstraints('vcpus', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
-
-        $metadata->addPropertyConstraints('disk', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
-
-        $metadata->addPropertyConstraints('transfer', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
-
-        $metadata->addPropertyConstraints('mbits_out', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
+        return new $class($client, $id, $data);
     }
 }

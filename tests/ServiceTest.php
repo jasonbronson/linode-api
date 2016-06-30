@@ -11,7 +11,12 @@
 
 namespace Tests\Linode;
 
+use Linode\BackupService;
+use Linode\LinodeClient;
+use Linode\LinodeService;
+use Linode\LongviewService;
 use Linode\Service;
+use Tests\Linode\Internal\ApiBridgeStub;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,5 +34,31 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->setProtectedProperty($service, 'id', $id);
         self::assertEquals('/services/' . $id, $service->getEndpoint());
+    }
+    
+    public function testGetInstance()
+    {
+        $expected = [
+            LongviewService::class,
+            LongviewService::class,
+            LongviewService::class,
+            LongviewService::class,
+            LinodeService::class,
+            LinodeService::class,
+            BackupService::class,
+        ];
+
+        $client = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
+        $this->setProtectedProperty($client, 'api', new ApiBridgeStub());
+
+        $services = $client->getServices();
+
+        $actual = [];
+
+        foreach ($services as $service) {
+            $actual[] = get_class($service);
+        }
+
+        self::assertEquals($expected, $actual);
     }
 }

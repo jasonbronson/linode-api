@@ -12,6 +12,10 @@
 namespace Linode\Enum;
 
 use Dictionary\StaticDictionary;
+use Linode\BackupService;
+use Linode\LinodeService;
+use Linode\LongviewService;
+use Linode\NodeBalancerService;
 
 /**
  * Service type.
@@ -29,10 +33,10 @@ class ServiceTypeEnum extends StaticDictionary
     public static function all()
     {
         return [
-            self::LINODE       => null,
-            self::BACKUP       => null,
-            self::NODEBALANCER => null,
-            self::LONGVIEW     => null,
+            self::LINODE       => LinodeService::class,
+            self::BACKUP       => BackupService::class,
+            self::NODEBALANCER => NodeBalancerService::class,
+            self::LONGVIEW     => LongviewService::class,
         ];
     }
 }
