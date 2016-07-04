@@ -37,7 +37,7 @@ class SlaveDnsZone extends DnsZone
      */
     public function __construct(LinodeClient $client, $dnszone, array $master_ips = [])
     {
-        parent::__construct($client, null, [
+        parent::__construct($client, [
             'type'       => DnsZoneTypeEnum::SLAVE,
             'status'     => DnsZoneStatusEnum::ACTIVE,
             'dnszone'    => $dnszone,

@@ -90,7 +90,7 @@ class DnsZone extends AbstractImmutableObject
     /**
      * {@inheritdoc}
      */
-    protected static function getInstance(LinodeClient $client, $id, array $data = [])
+    protected static function getInstance(LinodeClient $client, array $data = [])
     {
         switch ($data['type']) {
 
@@ -101,6 +101,6 @@ class DnsZone extends AbstractImmutableObject
                 return new SlaveDnsZone($client, $data['dnszone'], $data['master_ips']);
         }
 
-        return new self($client, $id, $data);
+        return new self($client, $data);
     }
 }

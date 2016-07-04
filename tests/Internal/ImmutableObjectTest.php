@@ -59,10 +59,9 @@ class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
     {
         $reflectionMethod = new \ReflectionMethod(ImmutableObjectStub::class, 'getInstance');
         $reflectionMethod->setAccessible(true);
-        $object = $reflectionMethod->invoke(null, $this->client, 'test', ['flag' => true]);
+        $object = $reflectionMethod->invoke(null, $this->client, ['flag' => true]);
 
         self::assertInstanceOf(ImmutableObjectStub::class, $object);
-        self::assertEquals('test', $object->id);
         self::assertTrue($object->flag);
     }
 

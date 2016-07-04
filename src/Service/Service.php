@@ -72,10 +72,10 @@ class Service extends AbstractImmutableObject
     /**
      * {@inheritdoc}
      */
-    protected static function getInstance(LinodeClient $client, $id, array $data = [])
+    protected static function getInstance(LinodeClient $client, array $data = [])
     {
         $class = ServiceTypeEnum::get($data['service_type']);
 
-        return new $class($client, $id, $data);
+        return new $class($client, $data);
     }
 }

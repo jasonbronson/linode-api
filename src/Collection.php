@@ -88,7 +88,11 @@ class Collection implements \Countable, \Iterator
 
             $reflectionMethod = new \ReflectionMethod($this->class, 'getInstance');
             $reflectionMethod->setAccessible(true);
-            $object = $reflectionMethod->invoke(null, $this->client, $data['id'], $data);
+            $object = $reflectionMethod->invoke(null, $this->client, $data);
+
+            $reflectionProperty = new \ReflectionProperty($this->class, 'id');
+            $reflectionProperty->setAccessible(true);
+            $reflectionProperty->setValue($object, $data['id']);
 
             $this->items[] = $object;
         }

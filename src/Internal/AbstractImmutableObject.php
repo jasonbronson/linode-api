@@ -27,14 +27,13 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
      * Initializes object properties with values from specified associated array.
      *
      * @param   LinodeClient $client Linode API client.
-     * @param   string       $id     Unique resource ID.
      * @param   array        $data   Object data.
      *
      * @throws  ValidationException
      */
-    protected function __construct(LinodeClient $client, $id = null, array $data = [])
+    protected function __construct(LinodeClient $client, array $data = [])
     {
-        parent::__construct($client, $id);
+        parent::__construct($client);
 
         $this->initialize($data);
     }
@@ -43,12 +42,11 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
      * Creates and initializes object properties with values from specified associated array.
      *
      * @param   LinodeClient $client Linode API client.
-     * @param   string       $id     Unique resource ID.
      * @param   array        $data   Object data.
      *
      * @return  static
      */
-    protected static function getInstance(LinodeClient $client, $id, array $data = [])
+    protected static function getInstance(LinodeClient $client, array $data = [])
     {
         $reflectionClass = new \ReflectionClass(static::class);
 
@@ -56,7 +54,7 @@ abstract class AbstractImmutableObject extends AbstractObject implements Immutab
 
         $reflectionMethod = new \ReflectionMethod(self::class, '__construct');
         $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($object, $client, $id, $data);
+        $reflectionMethod->invoke($object, $client, $data);
 
         return $object;
     }

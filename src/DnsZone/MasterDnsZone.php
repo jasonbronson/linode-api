@@ -45,7 +45,7 @@ class MasterDnsZone extends DnsZone
      */
     public function __construct(LinodeClient $client, $dnszone, $soa_email)
     {
-        parent::__construct($client, null, [
+        parent::__construct($client, [
             'type'      => DnsZoneTypeEnum::MASTER,
             'status'    => DnsZoneStatusEnum::ACTIVE,
             'dnszone'   => $dnszone,
