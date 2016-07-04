@@ -95,7 +95,7 @@ interface LinodeClientInterface
     /**
      * Returns list of DNS Zones.
      *
-     * @return  Collection|DnsZone[]
+     * @return  Collection|DnsZone\DnsZone[]
      * @throws  LinodeException
      */
     public function getDnsZones();
@@ -105,7 +105,7 @@ interface LinodeClientInterface
      *
      * @param   string $id Service ID.
      *
-     * @return  DnsZone
+     * @return  DnsZone\DnsZone
      * @throws  LinodeException
      */
     public function findDnsZone($id);

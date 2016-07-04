@@ -11,6 +11,7 @@
 
 namespace Linode;
 
+use Linode\DnsZone\DnsZone;
 use Linode\Enum\ServiceTypeEnum;
 use Linode\Internal\ApiBridge;
 use Linode\Service\Service;

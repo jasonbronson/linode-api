@@ -13,7 +13,7 @@ namespace Tests\Linode;
 
 use Linode\Datacenter;
 use Linode\Distribution;
-use Linode\DnsZone;
+use Linode\DnsZone\DnsZone;
 use Linode\Enum\ServiceTypeEnum;
 use Linode\Kernel;
 use Linode\LinodeClient;

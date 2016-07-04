@@ -9,9 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\DnsZone;
 
 use Linode\Enum\DnsZoneTypeEnum;
+use Linode\Internal\AbstractImmutableObject;
+use Linode\LinodeClient;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -25,7 +27,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    string    $display_group  A display group to keep track of this DNS Zone.
  * @property    string[]  $axfr_ips       An array of IP addresses allowed to AXFR the entire DNS Zone.
  */
-class DnsZone extends Internal\AbstractImmutableObject
+class DnsZone extends AbstractImmutableObject
 {
     protected $type;
     protected $status;

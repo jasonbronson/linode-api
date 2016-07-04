@@ -9,8 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\DnsZone;
 
+use Linode\Enum\DnsZoneStatusEnum;
+use Linode\Enum\DnsZoneTypeEnum;
+use Linode\LinodeClient;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -38,13 +41,13 @@ class MasterDnsZone extends DnsZone
      * @param   string       $dnszone   The DNS Zone name.
      * @param   string       $soa_email Start of Authority (SOA) contact email.
      *
-     * @throws  ValidationException
+     * @throws  \Linode\ValidationException
      */
     public function __construct(LinodeClient $client, $dnszone, $soa_email)
     {
         parent::__construct($client, null, [
-            'type'      => Enum\DnsZoneTypeEnum::MASTER,
-            'status'    => Enum\DnsZoneStatusEnum::ACTIVE,
+            'type'      => DnsZoneTypeEnum::MASTER,
+            'status'    => DnsZoneStatusEnum::ACTIVE,
             'dnszone'   => $dnszone,
             'soa_email' => $soa_email,
             'axfr_ips'  => [],

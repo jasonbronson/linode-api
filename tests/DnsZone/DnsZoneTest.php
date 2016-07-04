@@ -9,13 +9,14 @@
 //
 //----------------------------------------------------------------------
 
-namespace Tests\Linode;
+namespace Tests\Linode\DnsZone;
 
-use Linode\DnsZone;
+use Linode\DnsZone\DnsZone;
+use Linode\DnsZone\MasterDnsZone;
+use Linode\DnsZone\SlaveDnsZone;
 use Linode\LinodeClient;
-use Linode\MasterDnsZone;
-use Linode\SlaveDnsZone;
 use Tests\Linode\Internal\ApiBridgeStub;
+use Tests\Linode\TestTrait;
 
 class DnsZoneTest extends \PHPUnit_Framework_TestCase
 {

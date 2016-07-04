@@ -9,21 +9,22 @@
 //
 //----------------------------------------------------------------------
 
-namespace Tests\Linode;
+namespace Tests\Linode\DnsZone;
 
+use Linode\DnsZone\MasterDnsZone;
 use Linode\LinodeClient;
-use Linode\SlaveDnsZone;
+use Tests\Linode\TestTrait;
 
-class SlaveDnsZoneTest extends \PHPUnit_Framework_TestCase
+class MasterDnsZoneTest extends \PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
     public function testConstructor()
     {
         $client  = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
-        $dnszone = new SlaveDnsZone($client, 'example.com', ['127.0.0.1']);
+        $dnszone = new MasterDnsZone($client, 'example.com', 'admin@example.com');
 
         self::assertEquals('example.com', $dnszone->dnszone);
-        self::assertEquals(['127.0.0.1'], $dnszone->master_ips);
+        self::assertEquals('admin@example.com', $dnszone->soa_email);
     }
 }

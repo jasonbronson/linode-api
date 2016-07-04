@@ -9,8 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\DnsZone;
 
+use Linode\Enum\DnsZoneStatusEnum;
+use Linode\Enum\DnsZoneTypeEnum;
+use Linode\LinodeClient;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -30,13 +33,13 @@ class SlaveDnsZone extends DnsZone
      * @param   string       $dnszone    The DNS Zone name.
      * @param   string[]     $master_ips An array of IP addresses for this DNS Zone.
      *
-     * @throws  ValidationException
+     * @throws  \Linode\ValidationException
      */
     public function __construct(LinodeClient $client, $dnszone, array $master_ips = [])
     {
         parent::__construct($client, null, [
-            'type'       => Enum\DnsZoneTypeEnum::SLAVE,
-            'status'     => Enum\DnsZoneStatusEnum::ACTIVE,
+            'type'       => DnsZoneTypeEnum::SLAVE,
+            'status'     => DnsZoneStatusEnum::ACTIVE,
             'dnszone'    => $dnszone,
             'master_ips' => $master_ips,
             'axfr_ips'   => [],
