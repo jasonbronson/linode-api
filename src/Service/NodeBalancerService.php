@@ -9,7 +9,7 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Service;
 
 /**
  * A NodeBalancer service.

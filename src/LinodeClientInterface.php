@@ -77,7 +77,7 @@ interface LinodeClientInterface
      *
      * @param   string $type Type of services to return (NULL to return all, @see "Linode\Enum\ServiceTypeEnum").
      *
-     * @return  Collection|Service[]
+     * @return  Collection|Service\Service[]
      * @throws  LinodeException
      */
     public function getServices($type = null);
@@ -87,7 +87,7 @@ interface LinodeClientInterface
      *
      * @param   string $id Service ID.
      *
-     * @return  Service
+     * @return  Service\Service
      * @throws  LinodeException
      */
     public function findService($id);

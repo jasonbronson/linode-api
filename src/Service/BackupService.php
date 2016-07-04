@@ -9,27 +9,23 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Service;
 
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * A Linode service.
+ * A backup service.
  *
- * @property    string  $ram        Amount of RAM included in this service.
- * @property    string  $vcpus      If applicable, number of CPU cores.
- * @property    string  $disk       If applicable, disk space in MB.
- * @property    string  $transfer   If applicable, outbound transfer in MB.
- * @property    string  $mbits_out  If applicable, Mbits outbound bandwidth.
+ * @property    string  $ram       Amount of RAM included in this service.
+ * @property    string  $disk      If applicable, disk space in MB.
+ * @property    string  $transfer  If applicable, outbound transfer in MB.
  */
-class LinodeService extends Service
+class BackupService extends Service
 {
     protected $ram;
-    protected $vcpus;
     protected $disk;
     protected $transfer;
-    protected $mbits_out;
 
     /**
      * {@inheritdoc}
@@ -44,22 +40,12 @@ class LinodeService extends Service
             new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
 
-        $metadata->addPropertyConstraints('vcpus', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
-
         $metadata->addPropertyConstraints('disk', [
             new Constraints\Type(['type' => 'int']),
             new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
 
         $metadata->addPropertyConstraints('transfer', [
-            new Constraints\Type(['type' => 'int']),
-            new Constraints\GreaterThanOrEqual(['value' => 0]),
-        ]);
-
-        $metadata->addPropertyConstraints('mbits_out', [
             new Constraints\Type(['type' => 'int']),
             new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);

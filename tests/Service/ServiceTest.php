@@ -9,14 +9,15 @@
 //
 //----------------------------------------------------------------------
 
-namespace Tests\Linode;
+namespace Tests\Linode\Service;
 
-use Linode\BackupService;
 use Linode\LinodeClient;
-use Linode\LinodeService;
-use Linode\LongviewService;
-use Linode\Service;
+use Linode\Service\BackupService;
+use Linode\Service\LinodeService;
+use Linode\Service\LongviewService;
+use Linode\Service\Service;
 use Tests\Linode\Internal\ApiBridgeStub;
+use Tests\Linode\TestTrait;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {

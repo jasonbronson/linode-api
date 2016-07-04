@@ -17,7 +17,7 @@ use Linode\DnsZone;
 use Linode\Enum\ServiceTypeEnum;
 use Linode\Kernel;
 use Linode\LinodeClient;
-use Linode\Service;
+use Linode\Service\Service;
 use Tests\Linode\Internal\ApiBridgeStub;
 
 class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase

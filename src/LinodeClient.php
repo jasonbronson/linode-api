@@ -13,6 +13,7 @@ namespace Linode;
 
 use Linode\Enum\ServiceTypeEnum;
 use Linode\Internal\ApiBridge;
+use Linode\Service\Service;
 
 /**
  * Linode API client.

@@ -9,9 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-namespace Linode;
+namespace Linode\Service;
 
 use Linode\Enum\ServiceTypeEnum;
+use Linode\Internal\AbstractImmutableObject;
+use Linode\LinodeClient;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -23,7 +25,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    string  $hourly_price   Cost (in cents) per hour.
  * @property    string  $monthly_price  Cost (in cents) per month.
  */
-class Service extends Internal\AbstractImmutableObject
+class Service extends AbstractImmutableObject
 {
     protected $service_type;
     protected $label;
