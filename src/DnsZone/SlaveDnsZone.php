@@ -65,4 +65,16 @@ class SlaveDnsZone extends DnsZone
             ]),
         ]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMutableProperties()
+    {
+        $properties = parent::getMutableProperties();
+
+        $properties['master_ips'] = $this->master_ips;
+
+        return $properties;
+    }
 }

@@ -86,4 +86,20 @@ class MasterDnsZone extends DnsZone
             new Constraints\GreaterThanOrEqual(['value' => 0]),
         ]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMutableProperties()
+    {
+        $properties = parent::getMutableProperties();
+
+        $properties['soa_email']   = $this->soa_email;
+        $properties['ttl_sec']     = $this->ttl_sec;
+        $properties['refresh_sec'] = $this->refresh_sec;
+        $properties['retry_sec']   = $this->retry_sec;
+        $properties['expire_sec']  = $this->expire_sec;
+
+        return $properties;
+    }
 }
