@@ -32,7 +32,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $service = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/services', $service->getEndpoint());
 
-        $this->setProtectedProperty($service, 'id', $id);
+        $this->setProperty($service, 'id', $id);
         self::assertEquals('/services/' . $id, $service->getEndpoint());
     }
 
@@ -49,7 +49,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         ];
 
         $client = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
-        $this->setProtectedProperty($client, 'api', new ApiBridgeStub());
+        $this->setProperty($client, 'api', new ApiBridgeStub());
 
         $services = $client->getServices();
 

@@ -31,7 +31,7 @@ class DnsZoneTest extends \PHPUnit_Framework_TestCase
         $dnszone = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/dnszones', $dnszone->getEndpoint());
 
-        $this->setProtectedProperty($dnszone, 'id', $id);
+        $this->setProperty($dnszone, 'id', $id);
         self::assertEquals('/dnszones/' . $id, $dnszone->getEndpoint());
     }
 
@@ -44,7 +44,7 @@ class DnsZoneTest extends \PHPUnit_Framework_TestCase
         ];
 
         $client = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
-        $this->setProtectedProperty($client, 'api', new ApiBridgeStub());
+        $this->setProperty($client, 'api', new ApiBridgeStub());
 
         $dnszones = $client->getDnsZones();
 

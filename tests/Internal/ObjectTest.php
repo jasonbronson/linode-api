@@ -60,7 +60,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $object = new ObjectStub($this->client, ['flag' => true]);
         self::assertEquals('/tests', $object->getEndpoint());
 
-        $this->setProtectedProperty($object, 'id', 'test_123');
+        $this->setProperty($object, 'id', 'test_123');
         self::assertEquals('/tests/test_123', $object->getEndpoint());
     }
 

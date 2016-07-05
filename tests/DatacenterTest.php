@@ -27,7 +27,7 @@ class DatacenterTest extends \PHPUnit_Framework_TestCase
         $datacenter = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/datacenters', $datacenter->getEndpoint());
 
-        $this->setProtectedProperty($datacenter, 'id', $id);
+        $this->setProperty($datacenter, 'id', $id);
         self::assertEquals('/datacenters/' . $id, $datacenter->getEndpoint());
     }
 }

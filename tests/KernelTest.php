@@ -27,7 +27,7 @@ class KernelTest extends \PHPUnit_Framework_TestCase
         $kernel = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/kernels', $kernel->getEndpoint());
 
-        $this->setProtectedProperty($kernel, 'id', $id);
+        $this->setProperty($kernel, 'id', $id);
         self::assertEquals('/kernels/' . $id, $kernel->getEndpoint());
     }
 }

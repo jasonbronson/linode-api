@@ -27,7 +27,7 @@ class DistributionTest extends \PHPUnit_Framework_TestCase
         $distribution = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/distributions', $distribution->getEndpoint());
 
-        $this->setProtectedProperty($distribution, 'id', $id);
+        $this->setProperty($distribution, 'id', $id);
         self::assertEquals('/distributions/' . $id, $distribution->getEndpoint());
     }
 }

@@ -27,7 +27,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $this->client = new LinodeClient(null, 'https://api.alpha.linode.com/v4');
 
-        $this->setProtectedProperty($this->client, 'api', new ApiBridgeStub());
+        $this->setProperty($this->client, 'api', new ApiBridgeStub());
     }
 
     public function testIterator()
