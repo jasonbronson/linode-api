@@ -24,11 +24,12 @@ class ImmutableObjectStub extends AbstractImmutableObject
     protected $flag;
 
     /**
-     * {@inheritdoc}
+     * @param   LinodeClient $client
+     * @param   bool         $flag
      */
-    public function __construct(LinodeClient $client, array $data = [])
+    public function __construct(LinodeClient $client, $flag)
     {
-        parent::__construct($client, $data);
+        parent::__construct($client, ['flag' => $flag]);
     }
 
     /**

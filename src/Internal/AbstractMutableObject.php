@@ -21,6 +21,13 @@ use Linode\ValidationException;
 abstract class AbstractMutableObject extends AbstractImmutableObject implements MutableObjectInterface
 {
     /**
+     * Returns all mutable properties as an array in form of "['property name' => 'property value']".
+     *
+     * @return  string[]
+     */
+    abstract protected function getMutableProperties();
+
+    /**
      * Sets new value of specified property.
      *
      * @param   string $name
@@ -47,6 +54,32 @@ abstract class AbstractMutableObject extends AbstractImmutableObject implements 
             }
 
             $this->$name = $value;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save()
+    {
+        $endpoint   = $this->getEndpoint();
+        $parameters = $this->getMutableProperties();
+
+        $result = ($this->id === null)
+            ? $this->client->apiPost($endpoint, $parameters)
+            : $this->client->apiPut($endpoint, $parameters);
+
+        $this->initialize($result);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete()
+    {
+        if ($this->id !== null) {
+            $this->client->apiDelete($this->getEndpoint());
+            $this->id = null;
         }
     }
 }

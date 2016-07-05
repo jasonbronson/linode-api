@@ -11,6 +11,7 @@
 
 namespace Linode\Internal;
 
+use Linode\LinodeClient;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
@@ -32,4 +33,16 @@ interface ObjectInterface
      * @param   ClassMetadata $metadata
      */
     public static function loadValidatorMetadata(ClassMetadata $metadata);
+
+    /**
+     * Creates and initializes object properties with values from specified associated array.
+     *
+     * @param   LinodeClient $client Linode API client.
+     * @param   array        $data   Object data.
+     * @param   string       $parent ID of parent resource if applicable.
+     *
+     * @return  static
+     * @throws  \Linode\ValidationException
+     */
+    public static function getInstance(LinodeClient $client, array $data = [], $parent = null);
 }

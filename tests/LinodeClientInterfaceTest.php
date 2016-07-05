@@ -41,9 +41,9 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
         self::assertCount(8, $collection);
     }
 
-    public function testFindDatacenter()
+    public function testGetDatacenter()
     {
-        $object = $this->client->findDatacenter('datacenter_6');
+        $object = $this->client->getDatacenter('datacenter_6');
 
         self::assertInstanceOf(Datacenter::class, $object);
         self::assertEquals('Newark, NJ', $object->label);
@@ -63,9 +63,9 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
         self::assertCount(9, $collection);
     }
 
-    public function testFindDistribution()
+    public function testGetDistribution()
     {
-        $object = $this->client->findDistribution('distribution_126');
+        $object = $this->client->getDistribution('distribution_126');
 
         self::assertInstanceOf(Distribution::class, $object);
         self::assertEquals('Ubuntu 12.04 LTS', $object->label);
@@ -78,9 +78,9 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
         self::assertCount(16, $collection);
     }
 
-    public function testFindKernel()
+    public function testGetKernel()
     {
-        $object = $this->client->findKernel('kernel_137');
+        $object = $this->client->getKernel('kernel_137');
 
         self::assertInstanceOf(Kernel::class, $object);
         self::assertEquals('Latest 32 bit (4.1.5-x86-linode80)', $object->label);
@@ -100,9 +100,9 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
         self::assertCount(2, $collection);
     }
 
-    public function testFindService()
+    public function testGetService()
     {
-        $object = $this->client->findService('service_112');
+        $object = $this->client->getService('service_112');
 
         self::assertInstanceOf(Service::class, $object);
         self::assertEquals('Linode 1024', $object->label);
@@ -115,9 +115,9 @@ class LinodeClientInterfaceTest extends \PHPUnit_Framework_TestCase
         self::assertCount(3, $collection);
     }
 
-    public function testFindDnsZone()
+    public function testGetDnsZone()
     {
-        $object = $this->client->findDnsZone('dnszone_1');
+        $object = $this->client->getDnsZone('dnszone_1');
 
         self::assertInstanceOf(DnsZone::class, $object);
         self::assertEquals('example.com', $object->dnszone);

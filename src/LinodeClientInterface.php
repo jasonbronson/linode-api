@@ -32,7 +32,7 @@ interface LinodeClientInterface
      * @return  Datacenter
      * @throws  LinodeException
      */
-    public function findDatacenter($id);
+    public function getDatacenter($id);
 
     /**
      * Returns list of distributions.
@@ -52,7 +52,7 @@ interface LinodeClientInterface
      * @return  Distribution
      * @throws  LinodeException
      */
-    public function findDistribution($id);
+    public function getDistribution($id);
 
     /**
      * Returns list of kernels.
@@ -70,7 +70,7 @@ interface LinodeClientInterface
      * @return  Kernel
      * @throws  LinodeException
      */
-    public function findKernel($id);
+    public function getKernel($id);
 
     /**
      * Returns list of services.
@@ -90,7 +90,7 @@ interface LinodeClientInterface
      * @return  Service\Service
      * @throws  LinodeException
      */
-    public function findService($id);
+    public function getService($id);
 
     /**
      * Returns list of DNS Zones.
@@ -108,5 +108,5 @@ interface LinodeClientInterface
      * @return  DnsZone\DnsZone
      * @throws  LinodeException
      */
-    public function findDnsZone($id);
+    public function getDnsZone($id);
 }

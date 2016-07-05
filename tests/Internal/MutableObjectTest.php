@@ -29,15 +29,16 @@ class MutableObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testImmutableId()
     {
-        $object     = new MutableObjectStub($this->client, ['flag' => true]);
+        $object     = new MutableObjectStub($this->client, true);
         $object->id = 'test';
     }
 
     public function testMutableProperty()
     {
-        $object       = new MutableObjectStub($this->client, ['flag' => true]);
-        $object->flag = false;
+        $object = new MutableObjectStub($this->client, true);
+        self::assertTrue($object->flag);
 
+        $object->flag = false;
         self::assertFalse($object->flag);
     }
 
@@ -47,7 +48,7 @@ class MutableObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testMutablePropertyException()
     {
-        $object       = new MutableObjectStub($this->client, ['flag' => true]);
+        $object       = new MutableObjectStub($this->client, true);
         $object->flag = null;
     }
 }

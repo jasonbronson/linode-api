@@ -14,7 +14,7 @@ namespace Tests\Linode\Internal;
 use Linode\LinodeClient;
 use Tests\Linode\TestTrait;
 
-class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
+class ObjectTest extends \PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
@@ -29,7 +29,7 @@ class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
     public function testConstructorValidData()
     {
         /** @var \StdClass $object */
-        $object = new ImmutableObjectStub($this->client, true);
+        $object = new ObjectStub($this->client, ['flag' => true]);
 
         self::assertTrue(isset($object->flag));
         self::assertFalse(isset($object->unknown));
@@ -43,7 +43,7 @@ class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorInvalidData()
     {
-        new ImmutableObjectStub($this->client, 'true');
+        new ObjectStub($this->client, ['flag' => 'true']);
     }
 
     /**
@@ -52,16 +52,22 @@ class ImmutableObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorEmptyData()
     {
-        new ImmutableObjectStub($this->client, null);
+        new ObjectStub($this->client);
     }
 
-    /**
-     * @expectedException \Linode\ValidationException
-     * @expectedExceptionMessage This object is immutable.
-     */
-    public function testImmutableObject()
+    public function testGetEndpoint()
     {
-        $object       = new ImmutableObjectStub($this->client, true);
-        $object->flag = false;
+        $object = new ObjectStub($this->client, ['flag' => true]);
+        self::assertEquals('/tests', $object->getEndpoint());
+
+        $this->setProtectedProperty($object, 'id', 'test_123');
+        self::assertEquals('/tests/test_123', $object->getEndpoint());
+    }
+
+    public function testGetInstance()
+    {
+        $object = ObjectStub::getInstance($this->client, ['flag' => true]);
+
+        self::assertInstanceOf(ObjectStub::class, $object);
     }
 }

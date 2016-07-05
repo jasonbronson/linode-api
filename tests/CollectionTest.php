@@ -57,7 +57,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         ];
 
         /** @var Distribution[] $collection */
-        $collection = new Collection($this->client, '/distributions', Distribution::class, 'distributions');
+        $collection = new Collection($this->client, Distribution::class, '/distributions', 'distributions');
 
         self::assertCount(count($expected), $collection);
 

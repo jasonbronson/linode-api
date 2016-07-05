@@ -19,14 +19,17 @@ class Collection implements \Countable, \Iterator
     /** @var LinodeClient Linode client. */
     protected $client;
 
-    /** @var string API endpoint to get the collection. */
-    protected $endpoint;
-
     /** @var string PHP class of collection items. */
     protected $class;
 
+    /** @var string API endpoint to get the collection. */
+    protected $endpoint;
+
     /** @var string Key of the item in response which contains data objects list. */
     protected $key;
+
+    /** @var string ID of parent resource if applicable. */
+    protected $parent;
 
     /** @var int Current page (one-based). */
     protected $current_page;
@@ -47,18 +50,20 @@ class Collection implements \Countable, \Iterator
      * Constructor.
      *
      * @param   LinodeClient $client   Linode client.
-     * @param   string       $endpoint API endpoint to get the collection.
      * @param   string       $class    PHP class of collection items.
+     * @param   string       $endpoint API endpoint to get the collection.
      * @param   string       $key      Key of the item in response which contains data objects list.
+     * @param   string       $parent   ID of parent resource if applicable.
      *
      * @throws  LinodeException
      */
-    public function __construct(LinodeClient $client, $endpoint, $class, $key)
+    public function __construct(LinodeClient $client, $class, $endpoint, $key, $parent = null)
     {
         $this->client   = $client;
-        $this->endpoint = $endpoint;
         $this->class    = $class;
+        $this->endpoint = $endpoint;
         $this->key      = $key;
+        $this->parent   = $parent;
 
         $this->parseResponse($client->apiGet($endpoint));
     }
@@ -87,14 +92,8 @@ class Collection implements \Countable, \Iterator
         foreach ($response[$this->key] as $data) {
 
             $reflectionMethod = new \ReflectionMethod($this->class, 'getInstance');
-            $reflectionMethod->setAccessible(true);
-            $object = $reflectionMethod->invoke(null, $this->client, $data);
 
-            $reflectionProperty = new \ReflectionProperty($this->class, 'id');
-            $reflectionProperty->setAccessible(true);
-            $reflectionProperty->setValue($object, $data['id']);
-
-            $this->items[] = $object;
+            $this->items[] = $reflectionMethod->invoke(null, $this->client, $data, $this->parent);
         }
     }
 

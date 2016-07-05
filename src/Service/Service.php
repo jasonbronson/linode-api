@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    string  $hourly_price   Cost (in cents) per hour.
  * @property    string  $monthly_price  Cost (in cents) per month.
  */
-class Service extends AbstractImmutableObject
+abstract class Service extends AbstractImmutableObject
 {
     protected $service_type;
     protected $label;
@@ -72,10 +72,16 @@ class Service extends AbstractImmutableObject
     /**
      * {@inheritdoc}
      */
-    protected static function getInstance(LinodeClient $client, array $data = [])
+    public static function getInstance(LinodeClient $client, array $data = [], $parent = null)
     {
-        $class = ServiceTypeEnum::get($data['service_type']);
+        $reflectionClass = new \ReflectionClass(ServiceTypeEnum::get($data['service_type']));
 
-        return new $class($client, $data);
+        $object = $reflectionClass->newInstanceWithoutConstructor();
+
+        $reflectionMethod = new \ReflectionMethod(self::class, '__construct');
+        $reflectionMethod->setAccessible(true);
+        $reflectionMethod->invoke($object, $client, $data);
+
+        return $object;
     }
 }

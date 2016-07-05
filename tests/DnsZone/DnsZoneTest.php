@@ -11,7 +11,6 @@
 
 namespace Tests\Linode\DnsZone;
 
-use Linode\DnsZone\DnsZone;
 use Linode\DnsZone\MasterDnsZone;
 use Linode\DnsZone\SlaveDnsZone;
 use Linode\LinodeClient;
@@ -26,9 +25,9 @@ class DnsZoneTest extends \PHPUnit_Framework_TestCase
     {
         $id = mt_rand();
 
-        $reflectionClass = new \ReflectionClass(DnsZone::class);
+        $reflectionClass = new \ReflectionClass(MasterDnsZone::class);
 
-        /** @var DnsZone $dnszone */
+        /** @var MasterDnsZone $dnszone */
         $dnszone = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/dnszones', $dnszone->getEndpoint());
 

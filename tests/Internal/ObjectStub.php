@@ -11,26 +11,24 @@
 
 namespace Tests\Linode\Internal;
 
-use Linode\Internal\AbstractMutableObject;
+use Linode\Internal\AbstractObject;
 use Linode\LinodeClient;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * @property    string $id
- * @property    bool   $flag
+ * @property    bool $flag
  */
-class MutableObjectStub extends AbstractMutableObject
+class ObjectStub extends AbstractObject
 {
-    protected $flag;
+    public $flag;
 
     /**
-     * @param   LinodeClient $client
-     * @param   bool         $flag
+     * {@inheritdoc}
      */
-    public function __construct(LinodeClient $client, $flag)
+    public function __construct(LinodeClient $client, array $data = [], $parent = null)
     {
-        parent::__construct($client, ['flag' => $flag]);
+        parent::__construct($client, $data, $parent);
     }
 
     /**
@@ -50,15 +48,5 @@ class MutableObjectStub extends AbstractMutableObject
             new Constraints\Type(['type' => 'bool']),
             new Constraints\NotNull(),
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMutableProperties()
-    {
-        return [
-            'flag' => $this->flag,
-        ];
     }
 }

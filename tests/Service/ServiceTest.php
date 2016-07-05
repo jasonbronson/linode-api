@@ -15,7 +15,6 @@ use Linode\LinodeClient;
 use Linode\Service\BackupService;
 use Linode\Service\LinodeService;
 use Linode\Service\LongviewService;
-use Linode\Service\Service;
 use Tests\Linode\Internal\ApiBridgeStub;
 use Tests\Linode\TestTrait;
 
@@ -27,9 +26,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $id = mt_rand();
 
-        $reflectionClass = new \ReflectionClass(Service::class);
+        $reflectionClass = new \ReflectionClass(LinodeService::class);
 
-        /** @var Service $service */
+        /** @var LinodeService $service */
         $service = $reflectionClass->newInstanceWithoutConstructor();
         self::assertEquals('/services', $service->getEndpoint());
 

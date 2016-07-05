@@ -17,7 +17,7 @@ namespace Linode\Internal;
 interface MutableObjectInterface extends ImmutableObjectInterface
 {
     /**
-     * Saves Linode object. In case of new object it must be created.
+     * Saves Linode object. In case of new object it will be created.
      *
      * @throws  \Linode\LinodeException
      */

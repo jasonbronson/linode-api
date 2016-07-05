@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @property    string    $display_group  A display group to keep track of this DNS Zone.
  * @property    string[]  $axfr_ips       An array of IP addresses allowed to AXFR the entire DNS Zone.
  */
-class DnsZone extends AbstractImmutableObject
+abstract class DnsZone extends AbstractImmutableObject
 {
     protected $type;
     protected $status;
@@ -90,17 +90,16 @@ class DnsZone extends AbstractImmutableObject
     /**
      * {@inheritdoc}
      */
-    protected static function getInstance(LinodeClient $client, array $data = [])
+    public static function getInstance(LinodeClient $client, array $data = [], $parent = null)
     {
-        switch ($data['type']) {
+        $reflectionClass = new \ReflectionClass(DnsZoneTypeEnum::get($data['type']));
 
-            case DnsZoneTypeEnum::MASTER:
-                return new MasterDnsZone($client, $data['dnszone'], $data['soa_email']);
+        $object = $reflectionClass->newInstanceWithoutConstructor();
 
-            case DnsZoneTypeEnum::SLAVE:
-                return new SlaveDnsZone($client, $data['dnszone'], $data['master_ips']);
-        }
+        $reflectionMethod = new \ReflectionMethod(self::class, '__construct');
+        $reflectionMethod->setAccessible(true);
+        $reflectionMethod->invoke($object, $client, $data);
 
-        return new self($client, $data);
+        return $object;
     }
 }

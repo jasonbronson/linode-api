@@ -11,10 +11,7 @@
 
 namespace Linode\Internal;
 
-use Linode\LinodeClient;
 use Linode\ValidationException;
-
-/** @noinspection SingletonFactoryPatternViolationInspection */
 
 /**
  * A Linode object to represent an individual read-only resource.
@@ -23,68 +20,6 @@ use Linode\ValidationException;
  */
 abstract class AbstractImmutableObject extends AbstractObject implements ImmutableObjectInterface
 {
-    /**
-     * Initializes object properties with values from specified associated array.
-     *
-     * @param   LinodeClient $client Linode API client.
-     * @param   array        $data   Object data.
-     *
-     * @throws  ValidationException
-     */
-    protected function __construct(LinodeClient $client, array $data = [])
-    {
-        parent::__construct($client);
-
-        $this->initialize($data);
-    }
-
-    /**
-     * Creates and initializes object properties with values from specified associated array.
-     *
-     * @param   LinodeClient $client Linode API client.
-     * @param   array        $data   Object data.
-     *
-     * @return  static
-     */
-    protected static function getInstance(LinodeClient $client, array $data = [])
-    {
-        $reflectionClass = new \ReflectionClass(static::class);
-
-        $object = $reflectionClass->newInstanceWithoutConstructor();
-
-        $reflectionMethod = new \ReflectionMethod(self::class, '__construct');
-        $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($object, $client, $data);
-
-        return $object;
-    }
-
-    /**
-     * Re-initializes object properties with values from specified associated array.
-     *
-     * @param   array $data
-     *
-     * @throws  ValidationException
-     */
-    protected function initialize(array $data = [])
-    {
-        foreach ($data as $key => $value) {
-            if (property_exists($this, $key) && $key !== 'id') {
-                $this->$key = $value;
-            }
-        }
-
-        $violations = $this->validator->validate($this);
-
-        if ($violations->count() !== 0) {
-
-            $violation = $violations->get(0);
-            $message   = sprintf('[%s] %s', $violation->getPropertyPath(), $violation->getMessage());
-
-            throw new ValidationException($message);
-        }
-    }
-
     /**
      * Checks whether specified property exists in the object.
      *

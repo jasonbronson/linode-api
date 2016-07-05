@@ -91,43 +91,19 @@ final class LinodeClient implements LinodeClientInterface
     }
 
     /**
-     * Finds specified Linode API resource.
-     *
-     * @param   string $class PHP class of resource object (must inherit from "AbstractImmutableObject").
-     * @param   string $id    Resource ID.
-     *
-     * @return  Internal\AbstractImmutableObject
-     */
-    protected function findObject($class, $id)
-    {
-        $reflectionClass = new \ReflectionClass($class);
-
-        /** @var Internal\AbstractImmutableObject $object */
-        $object = $reflectionClass->newInstanceWithoutConstructor();
-
-        $reflectionMethod = new \ReflectionMethod(Internal\AbstractObject::class, '__construct');
-        $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($object, $this, $id);
-
-        $object->refresh();
-
-        return $object;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getDatacenters()
     {
-        return new Collection($this, '/datacenters', Datacenter::class, 'datacenters');
+        return new Collection($this, Datacenter::class, '/datacenters', 'datacenters');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findDatacenter($id)
+    public function getDatacenter($id)
     {
-        return $this->findObject(Datacenter::class, $id);
+        return Datacenter::getInstance($this, $this->apiGet('/datacenters/' . $id));
     }
 
     /**
@@ -139,15 +115,15 @@ final class LinodeClient implements LinodeClientInterface
             ? '/distributions/recommended'
             : '/distributions';
 
-        return new Collection($this, $endpoint, Distribution::class, 'distributions');
+        return new Collection($this, Distribution::class, $endpoint, 'distributions');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findDistribution($id)
+    public function getDistribution($id)
     {
-        return $this->findObject(Distribution::class, $id);
+        return Distribution::getInstance($this, $this->apiGet('/distributions/' . $id));
     }
 
     /**
@@ -155,15 +131,15 @@ final class LinodeClient implements LinodeClientInterface
      */
     public function getKernels()
     {
-        return new Collection($this, '/kernels', Kernel::class, 'kernels');
+        return new Collection($this, Kernel::class, '/kernels', 'kernels');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findKernel($id)
+    public function getKernel($id)
     {
-        return $this->findObject(Kernel::class, $id);
+        return Kernel::getInstance($this, $this->apiGet('/kernels/' . $id));
     }
 
     /**
@@ -175,15 +151,15 @@ final class LinodeClient implements LinodeClientInterface
             ? '/services/' . $type
             : '/services';
 
-        return new Collection($this, $endpoint, Service::class, 'services');
+        return new Collection($this, Service::class, $endpoint, 'services');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findService($id)
+    public function getService($id)
     {
-        return $this->findObject(Service::class, $id);
+        return Service::getInstance($this, $this->apiGet('/services/' . $id));
     }
 
     /**
@@ -191,14 +167,14 @@ final class LinodeClient implements LinodeClientInterface
      */
     public function getDnsZones()
     {
-        return new Collection($this, '/dnszones', DnsZone::class, 'dnszones');
+        return new Collection($this, DnsZone::class, '/dnszones', 'dnszones');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findDnsZone($id)
+    public function getDnsZone($id)
     {
-        return $this->findObject(DnsZone::class, $id);
+        return DnsZone::getInstance($this, $this->apiGet('/dnszones/' . $id));
     }
 }
