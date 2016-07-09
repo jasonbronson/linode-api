@@ -11,6 +11,8 @@
 
 namespace Linode\DnsZone;
 
+use Linode\Collection;
+use Linode\DnsZoneRecord\DnsZoneRecord;
 use Linode\Enum\DnsZoneTypeEnum;
 use Linode\Internal\AbstractMutableObject;
 use Linode\LinodeClient;
@@ -35,6 +37,34 @@ abstract class DnsZone extends AbstractMutableObject
     protected $description;
     protected $display_group;
     protected $axfr_ips;
+
+    /**
+     * Returns list of DNS Zone records.
+     *
+     * @return  Collection|\Linode\DnsZoneRecord\DnsZoneRecord[]
+     * @throws  \Linode\LinodeException
+     */
+    public function getRecords()
+    {
+        $endpoint = $this->getEndpoint() . '/records';
+
+        return new Collection($this->client, DnsZoneRecord::class, $endpoint, 'records');
+    }
+
+    /**
+     * Finds specified DNS Zone record.
+     *
+     * @param   string $id Record ID.
+     *
+     * @return  \Linode\DnsZoneRecord\DnsZoneRecord
+     * @throws  \Linode\LinodeException
+     */
+    public function getRecord($id)
+    {
+        $endpoint = $this->getEndpoint() . '/records/' . $id;
+
+        return DnsZoneRecord::getInstance($this->client, $this->client->apiGet($endpoint), $this->id);
+    }
 
     /**
      * {@inheritdoc}

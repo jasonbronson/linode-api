@@ -77,6 +77,30 @@ class ApiBridgeStub
             '/dnszones/dnszone_2' => [
                 ApiBridge::METHOD_GET => 'getSlaveDnsZone',
             ],
+            '/dnszones/dnszone_1/records' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneRecords',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_1' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneNsRecord',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_4' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneA4Record',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_6' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneA6Record',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_7' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneCnameRecord',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_8' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneMxRecord',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_13' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneTxtRecord',
+            ],
+            '/dnszones/dnszone_1/records/dnsrecord_15' => [
+                ApiBridge::METHOD_GET => 'getDnsZoneSrvRecord',
+            ],
         ];
 
         if (array_key_exists($endpoint, $endpoints)) {
@@ -318,5 +342,100 @@ class ApiBridgeStub
     protected function getSlaveDnsZone()
     {
         return '{"id": "dnszone_2", "axfr_ips": [], "refresh_sec": 0, "display_group": "", "soa_email": "", "expire_sec": 0, "type": "slave", "dnszone": "example.net", "ttl_sec": 0, "retry_sec": 0, "status": "active", "master_ips": []}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneRecords()
+    {
+        return '{"page": 1, "total_pages": 1, "total_results": 15, "records": [
+                {"id": "dnsrecord_1", "type": "NS", "ttl_sec": 0, "target": "", "name": "ns1.linode.com", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_2", "type": "NS", "ttl_sec": 0, "target": "", "name": "ns2.linode.com", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_3", "type": "NS", "ttl_sec": 0, "target": "admin", "name": "ns3.linode.com", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_4", "type": "A", "ttl_sec": 0, "target": "192.168.0.1", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_5", "type": "A", "ttl_sec": 0, "target": "192.168.0.1", "name": "*", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_6", "type": "AAAA", "ttl_sec": 0, "target": "0:0:0:0:0:ffff:c0a8:1", "name": "admin", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_7", "type": "CNAME", "ttl_sec": 0, "target": "ghs.google.com", "name": "mail", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_8", "type": "MX", "ttl_sec": 0, "target": "aspmx.l.google.com", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 1, "service": null}, 
+                {"id": "dnsrecord_9", "type": "MX", "ttl_sec": 0, "target": "aspmx2.l.google.com", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 10, "service": null}, 
+                {"id": "dnsrecord_10", "type": "MX", "ttl_sec": 0, "target": "aspmx3.l.google.com", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 10, "service": null}, 
+                {"id": "dnsrecord_11", "type": "MX", "ttl_sec": 0, "target": "alt1.aspmx.l.google.com", "name": "admin", "protocol": null, "weight": 0, "port": 0, "priority": 5, "service": null}, 
+                {"id": "dnsrecord_12", "type": "MX", "ttl_sec": 0, "target": "alt2.aspmx.l.google.com", "name": "admin", "protocol": null, "weight": 0, "port": 0, "priority": 5, "service": null}, 
+                {"id": "dnsrecord_13", "type": "TXT", "ttl_sec": 0, "target": "v=spf1 ip4:192.168.0.1 include:_spf.google.com ~all", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_14", "type": "TXT", "ttl_sec": 0, "target": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDfl0chtL4siFYCrSPxw43fqc4zOo3N+Il220oK2Cp+NZw9Kuvg8iu2Ua3zfbUnZWvWK4aEeooliRd7SXIhKpXkgkwnAB3DGAQ6+/7UVXf9xOeupr1DqtNwKt/NngC7ZIZyNRPx1HWKleP13UXCD8macUEbbcBhthrnETKoCg8wOwIDAQAB;", "name": "google._domainkey", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}, 
+                {"id": "dnsrecord_15", "type": "SRV", "ttl_sec": 0, "target": "admin", "name": "_sip._tcp", "protocol": "_tcp", "weight": 0, "port": 80, "priority": 10, "service": "_sip"}]}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneNsRecord()
+    {
+        return '{"id": "dnsrecord_1", "type": "NS", "ttl_sec": 0, "target": "", "name": "ns1.linode.com", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneA4Record()
+    {
+        return '{"id": "dnsrecord_4", "type": "A", "ttl_sec": 0, "target": "192.168.0.1", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneA6Record()
+    {
+        return '{"id": "dnsrecord_6", "type": "AAAA", "ttl_sec": 0, "target": "0:0:0:0:0:ffff:c0a8:1", "name": "admin", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneCnameRecord()
+    {
+        return '{"id": "dnsrecord_7", "type": "CNAME", "ttl_sec": 0, "target": "ghs.google.com", "name": "mail", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneMxRecord()
+    {
+        return '{"id": "dnsrecord_8", "type": "MX", "ttl_sec": 0, "target": "aspmx.l.google.com", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 1, "service": null}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneTxtRecord()
+    {
+        return '{"id": "dnsrecord_13", "type": "TXT", "ttl_sec": 0, "target": "v=spf1 ip4:192.168.0.1 include:_spf.google.com ~all", "name": "", "protocol": null, "weight": 0, "port": 0, "priority": 0, "service": null}';
+    }
+
+    /**
+     * Emulates response from GET '/dnszones/:id/records/:id' endpoint.
+     *
+     * @return  string JSON response.
+     */
+    protected function getDnsZoneSrvRecord()
+    {
+        return '{"id": "dnsrecord_15", "type": "SRV", "ttl_sec": 0, "target": "admin", "name": "_sip._tcp", "protocol": "_tcp", "weight": 0, "port": 80, "priority": 10, "service": "_sip"}';
     }
 }

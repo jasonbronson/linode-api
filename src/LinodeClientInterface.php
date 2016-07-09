@@ -103,7 +103,7 @@ interface LinodeClientInterface
     /**
      * Finds specified DNS Zone.
      *
-     * @param   string $id Service ID.
+     * @param   string $id DNS Zone ID.
      *
      * @return  DnsZone\DnsZone
      * @throws  LinodeException
