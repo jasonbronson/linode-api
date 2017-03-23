@@ -1,16 +1,16 @@
 {
-    "name": "arodygin/linode-api",
+    "name": "webinarium/linode-api",
     "description": "Linode API Client Library for PHP",
     "type": "library",
     "keywords": ["api", "linode"],
-    "homepage": "https://github.com/arodygin/php-linode-api",
+    "homepage": "https://github.com/webinarium/linode-api",
     "license": "MIT",
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.6",
         "ext-curl": "*",
         "ext-json": "*",
         "symfony/validator": "^2.8|^3.0",
-        "arodygin/php-dictionary": "^1.0"
+        "webinarium/php-dictionary": "^1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.11"
