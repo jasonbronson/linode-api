@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  dynamicdns:
+    build:
+      context: ./
+      dockerfile: "./Dockerfile"
+    env_file: ./.env
+    hostname: linode-dns
+    command: php homeipaddress.php
+    volumes:
+      - ./:/usr/src/app/
