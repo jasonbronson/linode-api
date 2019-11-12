@@ -9,4 +9,4 @@ services:
     hostname: linode-dns
     command: php homeipaddress.php
     volumes:
-      - ./:/usr/src/app/
+      - ./:/app/
