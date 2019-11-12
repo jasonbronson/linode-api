@@ -1,31 +1,39 @@
 {
-    "name": "webinarium/linode-api",
-    "description": "Linode API Client Library for PHP",
-    "type": "library",
-    "keywords": ["api", "linode"],
-    "homepage": "https://github.com/webinarium/linode-api",
-    "license": "MIT",
-    "require": {
-        "php": ">=5.6",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "symfony/validator": "^2.8|^3.0",
-        "webinarium/php-dictionary": "^1.0"
+  "name": "jasonbronson/linode-api",
+  "description": "Linode API for updating home dns entry",
+  "type": "library",
+  "keywords": [
+    "api",
+    "linode",
+    "home",
+    "dns"
+  ],
+  "homepage": "https://github.com/jasonbronson/linode-api",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.1",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "vlucas/phpdotenv": "^3.1",
+    "guzzlehttp/guzzle": "^6.3",
+    "monolog/monolog": "^1.25",
+    "webinarium/linode-api": "^1.0"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Linode\\": "src/"
     },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^1.11"
-    },
-    "autoload": {
-        "psr-4": {
-            "Linode\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\Linode\\": "tests/"
-        }
-    },
-    "config": {
-        "bin-dir": "bin"
+    "classmap": [
+      "."
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Linode\\": "tests/"
     }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
 }
